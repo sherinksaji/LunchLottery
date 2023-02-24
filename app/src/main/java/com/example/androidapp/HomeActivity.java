@@ -21,10 +21,10 @@ public class HomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Intent intent=getIntent();
-        String userName=intent.getStringExtra("name");
-        String uid=intent.getStringExtra("uid");
+        String telegramHandle=intent.getStringExtra("telegramHandle");
+        
         TextView textViewName=(TextView)findViewById(R.id.textName);
-        textViewName.setText(userName);
+        textViewName.setText("Welcome, "+telegramHandle);
 
         Button logout=(Button)findViewById(R.id.signOut);
         logout.setOnClickListener(new View.OnClickListener(){
@@ -41,8 +41,8 @@ public class HomeActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Intent InputIntent=new Intent(HomeActivity.this, InputActivity.class);
-                InputIntent.putExtra("name",userName);
-                InputIntent.putExtra("uid",uid);
+                InputIntent.putExtra("telegramHandle",telegramHandle);
+                
                 startActivity(InputIntent);
             }
         });
@@ -56,8 +56,8 @@ public class HomeActivity extends AppCompatActivity{
             public void onClick(View v){
 
                 Intent InputIntent=new Intent(HomeActivity.this, OutputActivity.class);
-                InputIntent.putExtra("name",userName);
-                InputIntent.putExtra("uid",uid);
+                InputIntent.putExtra("telegramHandle",telegramHandle);
+
                 startActivity(InputIntent);
             }
         });

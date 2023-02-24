@@ -2,6 +2,7 @@ package com.example.androidapp;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -25,10 +26,12 @@ public class OutputActivity extends AppCompatActivity {
     DatabaseReference ref;
     TextView TV;
     String myUID;
+    String teleHandle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_output);
+        Intent intent=getIntent();
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         ref = FirebaseDatabase.getInstance().getReference().child("Week1").child(myUID);
         TV=(TextView) findViewById(R.id.outputTV);
@@ -51,6 +54,7 @@ public class OutputActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
+                TV.setText("You did not enter any item yet");
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });

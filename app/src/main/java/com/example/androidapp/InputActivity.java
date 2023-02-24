@@ -25,12 +25,14 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     DatabaseReference ref;
     String myUID;
+    String telegramHandle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
-
+        Intent intent=getIntent();
+        telegramHandle=intent.getStringExtra("telegramHandle");
         editTextItemName=(EditText) findViewById(R.id.item);
         editTextQuantity=(EditText) findViewById(R.id.qty);
         addButton = (Button) findViewById(R.id.addButton);

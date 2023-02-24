@@ -24,7 +24,7 @@ import java.util.Objects;
 public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-    private EditText editTextTeleHandle,editTextEmail,editTextPassword;
+    private EditText editTextTelegramHandle,editTextPassword;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
@@ -40,10 +40,8 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
         TextView registerUser=(Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
-        editTextTeleHandle=(EditText)findViewById(R.id.telegramHandle);
-        editTextEmail=(EditText)findViewById(R.id.email);
+        editTextTelegramHandle=(EditText)findViewById(R.id.telegramHandle);
         editTextPassword=(EditText)findViewById(R.id.password);
-
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
 
 
@@ -65,27 +63,20 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void registerUser(){
-        String email=editTextEmail.getText().toString().trim();
+
         String password=editTextPassword.getText().toString().trim();
-        String telegramHandle=editTextTeleHandle.getText().toString().trim();
+        String telegramHandle=editTextTelegramHandle.getText().toString().trim();
 
         if (telegramHandle.isEmpty()){
-            editTextTeleHandle.setError("Full name is required!");
-            editTextTeleHandle.requestFocus();
+            editTextTelegramHandle.setError("Telegram handle is required!");
+            editTextTelegramHandle.requestFocus();
             return;
+        }
+        if (telegramHandle.contains("@")){
+            editTextTelegramHandle.setError("Enter Telegram handle without @");
         }
 
-        if (email.isEmpty()){
-            editTextEmail.setError("Email is required!");
-            editTextEmail.requestFocus();
-            return;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            editTextEmail.setError("Please provide valid email!");
-            editTextEmail.requestFocus();
-            return;
-        }
+       String email=telegramHandle+"@example.com";
 
         if (password.isEmpty()){
             editTextPassword.setError("Password is required!");

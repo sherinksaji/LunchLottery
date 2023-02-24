@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText editTextEmail,editTextPassword;
+    private EditText editTextTelegramHandle,editTextPassword;
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
@@ -43,15 +43,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button signIn = (Button) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
 
-        editTextEmail=(EditText) findViewById(R.id.email);
+        editTextTelegramHandle=(EditText) findViewById(R.id.email);
         editTextPassword=(EditText) findViewById(R.id.password);
 
         progressBar=(ProgressBar) findViewById(R.id.progressBar);
 
         mAuth=FirebaseAuth.getInstance();
 
-        TextView forgotPassword=(TextView) findViewById(R.id.forgotPassword);
-        forgotPassword.setOnClickListener(this);
+
     }
 
     @Override
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements
         final int idRegister=R.id.register;
         final int idSignIn=R.id.signIn;
-        final int idForgotPassword=R.id.forgotPassword;
+
         switch(v.getId()){
             case idRegister:
                 startActivity(new Intent(this, RegisterUserActivity.class));
@@ -70,27 +69,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 userLogin();
                 break;
 
-            case idForgotPassword:
-                startActivity(new Intent(this, ForgotPassword.class));
-                break;
+
         }
     }
 
     private void userLogin(){
-        String email=editTextEmail.getText().toString().trim();
+        String telegramHandle=editTextTelegramHandle.getText().toString().trim();
         String password=editTextPassword.getText().toString().trim();
 
-        if (email.isEmpty()){
-            editTextEmail.setError("Email is required!");
-            editTextEmail.requestFocus();
+        if (telegramHandle.isEmpty()){
+            editTextTelegramHandle.setError("Telegram handle is required!");
+            editTextTelegramHandle.requestFocus();
             return;
+        }
+        if (telegramHandle.contains("@")){
+            editTextTelegramHandle.setError("Enter Telegram handle without @");
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            editTextEmail.setError("Please enter a valid email!");
-            editTextEmail.requestFocus();
-            return;
-        }
+        String email=telegramHandle+"@example.com";
 
         if (password.isEmpty()){
             editTextPassword.setError ("Password is required!");
@@ -116,11 +112,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String name=snapshot.child("telegramHandle").getValue(String.class);
+                            String telegramHandle=snapshot.child("telegramHandle").getValue(String.class);
                             Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
-                            intent.putExtra("name","Welcome, "+ name);
+                            intent.putExtra("telegramHandle",telegramHandle );
 
-                            intent.putExtra("uid",uid);
+
                             startActivity(intent);
 
                         }
