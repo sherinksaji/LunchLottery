@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "423220635800",
+    "firebase_url": "https://infosys-1d-d1f61-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "infosys-1d-d1f61",
+    "storage_bucket": "infosys-1d-d1f61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423220635800:android:627ee927eaf1ab06b788ed",
+        "android_client_info": {
+          "package_name": "com.example.androidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423220635800-4c58p68teom4k7laeehjbpagipvgr1h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4vzA8bAbczT9O5ayLK6wdUDK1FHv1SrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423220635800-4c58p68teom4k7laeehjbpagipvgr1h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
