@@ -3,17 +3,27 @@ package com.example.androidapp;
 public class Item {
 
 
-    public Item(String itemName, int quantity, String key) {
+    public Item(String itemName, int quantity, String telegramHandle) {
         this.itemName = itemName;
         this.quantity = quantity;
-        this.key = key;
+        this.telegramHandle=telegramHandle;
     }
     public Item(){
 
     }
     private String itemName;
     private int quantity;
-    private String key;
+
+
+    public String getTelegramHandle() {
+        return telegramHandle;
+    }
+
+    public void setTelegramHandle(String telegramHandle) {
+        this.telegramHandle = telegramHandle;
+    }
+
+    private String telegramHandle;
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
@@ -23,9 +33,7 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
+
 
     public String getItemName() {
         return itemName;
@@ -35,15 +43,13 @@ public class Item {
         return quantity;
     }
 
-    public String getKey() {
-        return key;
-    }
 
     @Override
     public String toString() {
         return "Item{" +
-                "itemName='" + this.getItemName() + '\'' +
-                ", quantity=" + this.getQuantity() +
+                "itemName='" + itemName + '\'' +
+                ", quantity=" + quantity +
+                ", telegramHandle='" + telegramHandle + '\'' +
                 '}';
     }
 }

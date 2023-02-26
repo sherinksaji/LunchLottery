@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button signIn = (Button) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
 
-        editTextTelegramHandle=(EditText) findViewById(R.id.email);
+        editTextTelegramHandle=(EditText) findViewById(R.id.telegramHandle);
         editTextPassword=(EditText) findViewById(R.id.password);
 
         progressBar=(ProgressBar) findViewById(R.id.progressBar);

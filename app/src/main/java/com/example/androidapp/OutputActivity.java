@@ -26,14 +26,15 @@ public class OutputActivity extends AppCompatActivity {
     DatabaseReference ref;
     TextView TV;
     String myUID;
-    String teleHandle;
+    String telegramHandle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_output);
         Intent intent=getIntent();
+        telegramHandle=intent.getStringExtra("telegramHandle");
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        ref = FirebaseDatabase.getInstance().getReference().child("Week1").child(myUID);
+        ref = FirebaseDatabase.getInstance().getReference().child("Week1").child(telegramHandle);
         TV=(TextView) findViewById(R.id.outputTV);
         readWeek();
     }

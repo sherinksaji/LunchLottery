@@ -87,9 +87,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     {
 
 
-        Item item = new Item(itemName,qty,myUID);
+        Item item = new Item(itemName,qty,telegramHandle);
 
-        ref.child(myUID).setValue(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.child(telegramHandle).setValue(item).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
