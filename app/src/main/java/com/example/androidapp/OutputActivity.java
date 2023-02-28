@@ -34,7 +34,7 @@ public class OutputActivity extends AppCompatActivity {
         Intent intent=getIntent();
         telegramHandle=intent.getStringExtra("telegramHandle");
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        ref = FirebaseDatabase.getInstance().getReference().child("Week1").child(telegramHandle);
+        ref = FirebaseDatabase.getInstance().getReference().child("Week1");
         TV=(TextView) findViewById(R.id.outputTV);
         readWeek();
     }
@@ -45,17 +45,23 @@ public class OutputActivity extends AppCompatActivity {
             @Override
             @NonNull
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                Item item = dataSnapshot.getValue(Item.class);
-                Log.d(TAG, "Value is: " + item.toString());
-                TV.setText(item.toString());
+                if (dataSnapshot.exists()){
+                    String readWeekStr="";
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                        Item item = postSnapshot.getValue(Item.class);
+                        readWeekStr+=item.toString();
+                        readWeekStr+=", ";
+                    }
+                    TV.setText(readWeekStr);
+                }
+                else{
+                    TV.setText("No one has entered for Week1 ");
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                TV.setText("You did not enter any item yet");
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });

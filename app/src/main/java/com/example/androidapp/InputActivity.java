@@ -1,20 +1,27 @@
 package com.example.androidapp;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -26,6 +33,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     DatabaseReference ref;
     String myUID;
     String telegramHandle;
+    TextView priorInputTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +45,16 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         editTextQuantity=(EditText) findViewById(R.id.qty);
         addButton = (Button) findViewById(R.id.addButton);
         addButton.setOnClickListener(this);
+        priorInputTV=(TextView) findViewById(R.id.priorInputTV);
 
 
 
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        ref = FirebaseDatabase.getInstance().getReference().child("Week1");
+        ref = FirebaseDatabase.getInstance().getReference().child("Week2").child(telegramHandle);
 
+
+        readPriorInput();
     }
 
     @Override
@@ -54,6 +65,30 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
         }
+    }
+    private void  readPriorInput(){
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            @NonNull
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                if (dataSnapshot.exists()){
+                    Item item = dataSnapshot.getValue(Item.class);
+                    Log.d(TAG, "Value is: " + item.toString());
+                    priorInputTV.setText(item.toString());
+                }
+                else{
+                    priorInputTV.setText("You did not enter any item yet");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
     }
 
     public void checkInput(){
@@ -89,7 +124,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         Item item = new Item(itemName,qty,telegramHandle);
 
-        ref.child(telegramHandle).setValue(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.setValue(item).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
