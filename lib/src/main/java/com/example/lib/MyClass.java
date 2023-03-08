@@ -8,10 +8,11 @@ import java.util.List;
 public class MyClass {
     public static void main(String[] args) {
         GregorianCalendar gregCal=new GregorianCalendar(2023,
-        3,
+        5,//June (January is month 0)
         4,
         12,
         0);
+
         Entry entry = new Entry ("sherinuhhahaha",gregCal);
         System.out.println(entry.toString());
 
@@ -59,8 +60,22 @@ public class MyClass {
         System.out.println(sherinMatch.displayResultToMatch());
 
 
+
         /**
+         List of things to do:
+         1. Implement EntryComparator to sort entryArrayList by telehandle. (Shivani)
+         2. Implement Methods to convert an entryArrayList into a PairArrayList.
+         3. Assuming the currentUser is in entryArrayList, implement methods to show the currentUser only their own result.
+         4. Implement WeekClass: instructions in WeekClass
+         5. Implement a subclass of Pair, called Trio, but for 3 ppl, so no one gets left out
+         (later we can even change item number 2 of this list to include polymorphism)
+         *
+         *
+         *
+         *
          TODO: Implement the EntryComparator
+         sort Entry Array by telegramHandle: Shivani
+
          */
 
         /**
@@ -78,12 +93,7 @@ public class MyClass {
                 *the created pairs will be added to a pair array list called pairArrayList
          * Feel free to modify any classes
          */
-
-
-
-
-
-         /**
+        /**
          TODO: Implement Methods/classes to display result to current user
 
          *currently the user is set to sherinuhhahaha
