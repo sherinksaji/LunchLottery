@@ -67,7 +67,7 @@ public class MyClass {
          2. Implement Methods to convert an entryArrayList into a PairArrayList.
          3. Assuming the currentUser is in entryArrayList, implement methods to show the currentUser only their own result.
          4. Implement WeekClass: instructions in WeekClass
-         5. Implement a subclass of Pair, called Trio, but for 3 ppl, so no one gets left out
+         5. Implement an abstract class called Group that is similar to Pair.
          (later we can even change item number 2 of this list to include polymorphism)
          *
          *
