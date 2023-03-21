@@ -29,7 +29,6 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     EditText editTextItemName, editTextQuantity;
     Button addButton;
-
     DatabaseReference ref;
     String myUID;
     String telegramHandle;

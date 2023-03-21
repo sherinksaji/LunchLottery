@@ -79,7 +79,7 @@ public class Entry {
         else{
             return "Results: \n" +
                     "TelegramHandle : " + "@" + this.getTelegramHandle() + '\n' +
-                    this.calStr() + '\n';
+                    this.calStr() + '\n'; //why need to have gettelegramhandle
         }
     }
 }
