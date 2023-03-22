@@ -7,31 +7,34 @@ import java.util.List;
 
 public class MyClass {
     public static void main(String[] args) {
-        GregorianCalendar gregCal=new GregorianCalendar(2023,
+
+
+        GregorianCalendar gregCal = new GregorianCalendar(2023,
+
                 5,//June (January is month 0)
                 4,
                 12,
                 0);
 
-        Entry entry = new Entry ("sherinuhhahaha",gregCal);
+        Entry entry = new Entry("sherinuhhahaha", gregCal);
         System.out.println(entry.toString());
 
-        Entry entry1 = new Entry ("marcia_sunflower",gregCal);
+        Entry entry1 = new Entry("marcia_sunflower", gregCal);
 
-        Entry entry2 = new Entry ("Ravenex",gregCal);
-        Entry entry3= new Entry ("alexanderwikstrom",gregCal);
-        Entry entry4= new Entry ("jnssay",gregCal);
-        Entry entry5 = new Entry ("rosapeltola",gregCal);
-        Entry entry6= new Entry ("Jalamieee",gregCal);
-        Entry entry7= new Entry ("turragdewan",gregCal);
-        Entry entry8 =new Entry("liewsoonhao",gregCal);
-        Entry entry9= new Entry("after232",gregCal);
-        Entry entry10=new Entry("Blackvines",gregCal);
-        Entry entry11= new Entry("asapruki",gregCal);
-        Entry entry12 = new Entry("namoikonk",gregCal);
-        Entry entry13= new Entry("gunnyjan",gregCal);
-        Entry entry14= new Entry ("Erick_t",gregCal);
-        ArrayList<Entry> entryArrayList=new ArrayList<>();
+        Entry entry2 = new Entry("Ravenex", gregCal);
+        Entry entry3 = new Entry("alexanderwikstrom", gregCal);
+        Entry entry4 = new Entry("jnssay", gregCal);
+        Entry entry5 = new Entry("rosapeltola", gregCal);
+        Entry entry6 = new Entry("Jalamieee", gregCal);
+        Entry entry7 = new Entry("turragdewan", gregCal);
+        Entry entry8 = new Entry("liewsoonhao", gregCal);
+        Entry entry9 = new Entry("after232", gregCal);
+        Entry entry10 = new Entry("Blackvines", gregCal);
+        Entry entry11 = new Entry("asapruki", gregCal);
+        Entry entry12 = new Entry("namoikonk", gregCal);
+        Entry entry13 = new Entry("gunnyjan", gregCal);
+        Entry entry14 = new Entry("Erick_t", gregCal);
+        ArrayList<Entry> entryArrayList = new ArrayList<>();
         entryArrayList.add(entry);
         entryArrayList.add(entry1);
         entryArrayList.add(entry2);
@@ -47,17 +50,26 @@ public class MyClass {
         entryArrayList.add(entry12);
         entryArrayList.add(entry13);
         entryArrayList.add(entry14);
-        for (Entry e: entryArrayList){
+        for (Entry e : entryArrayList) {
             System.out.println(e.toString());
         }
 
-        Pair pair1 = new Pair (entry,entry1);
+        create_pair cp = new create_pair();
+        cp.Create(entryArrayList);
+        for (int i = 0; i < cp.getStore_pair().size(); i++) {
+            System.out.println("name: " + cp.getStore_pair().get(i).getId() + ", partner: " + cp.getStore_pair().get(i).getPartner());
+        }
+        System.out.println(cp.find_pair(cp.getStore_pair(), "jalamieee"));
+        System.out.println(cp.find_pair(cp.getStore_pair(), "jnssay"));
+    }
+}
+        /*Pair pair1 = new Pair (entry,entry1);
         Boolean SherininPair=pair1.inPair("sherinuhhahaha");
         System.out.println(SherininPair);
         Boolean RaveninPair = pair1.inPair("ravenex");
         System.out.println(RaveninPair);
         Entry sherinMatch=pair1.match("sherinuhhahaha");
-        System.out.println(sherinMatch.displayResultToMatch());
+        System.out.println(sherinMatch.displayResultToMatch());*/
 
 
 
@@ -102,9 +114,6 @@ public class MyClass {
          * make changes to Pair class and Entry class as u wish
          * Feel free to modify any classes
          */
-        String currentUser="sherinuhhahaha";
+        //String currentUser="sherinuhhahaha";
 
 
-    }
-
-}

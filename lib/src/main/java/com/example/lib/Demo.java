@@ -27,12 +27,12 @@ public class Demo {
 
 
         Entry e1 =  new Entry("daisy",gregCal);
-        Pair pairWMatch = new Pair (e,e1);
-        Boolean userInPair=pairWMatch.inPair("sherinuhhahaha");
+        //Pair pairWMatch = new Pair (e,e1);
+        //Boolean userInPair=pairWMatch.inPair("sherinuhhahaha");
 //        System.out.println(userInPair);
 //        Boolean userInPair2=pairWMatch.inPair("marcia");
 //        System.out.println(userInPair2);
-        Entry userMatch=pairWMatch.match("sherinuhhahaha");
+        //Entry userMatch=pairWMatch.match("sherinuhhahaha");
 //        System.out.println(userMatch.toString());
 //
 //

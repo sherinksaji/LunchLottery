@@ -38,7 +38,10 @@ import java.util.Objects;
 public class InputActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText editTextItemName, editTextQuantity;
+
     Button datePickerBtn,timePickerBtn,joinButton;
+
+
 
     DatabaseReference ref;
     DatabaseReference userInfoRef;
