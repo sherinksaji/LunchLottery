@@ -24,8 +24,18 @@ public class Entry {
         this.bookingTimeStamp = gregCal.getTime().getTime();
     }
     public Entry(GregorianCalendar gregCal){
-        this.telegramHandle = "No match";
-        this.bookingTimeStamp= gregCal.getTime().getTime();
+        this("No match",gregCal);
+    }
+
+    public Entry(){
+        this("telegramHandle",new GregorianCalendar());
+    }
+
+    public Entry(Ticket ticket){
+        GregorianCalendar gregCal=new GregorianCalendar();
+        gregCal.setTimeInMillis(ticket.getBookingTimeStamp());
+        this.telegramHandle= ticket.getTelegramHandle();
+        this.bookingTimeStamp=gregCal.getTime().getTime();
     }
 
     public String getTelegramHandle() {
@@ -51,22 +61,28 @@ public class Entry {
     }
 
     public String calStr (){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         String dateTimeString = dateFormat.format(this.getGregCal().getTime());
-        return "Timing: "+dateTimeString;
+        return dateTimeString;
     }
+
+    public Ticket fbTicket(){
+        return new Ticket(this.getTelegramHandle(),this.getBookingTimeStamp(),this.calStr());
+    }
+
+
 
     @Override
     public String toString() {
         if (getTelegramHandle()=="No match"){
             return "ENTRY: \n" +
                     "TelegramHandle : " + "This is an empty entry object"+ '\n' +
-                    this.calStr() + '\n';
+                    "Timing : "+this.calStr() + '\n';
         }
         else {
             return "ENTRY: \n" +
                     "TelegramHandle : " + "@" + this.getTelegramHandle() + '\n' +
-                    this.calStr() + '\n';
+                    "Timing : "+this.calStr() + '\n';
         }
     }
 

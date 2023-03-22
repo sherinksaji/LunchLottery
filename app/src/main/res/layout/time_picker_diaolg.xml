@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InputActivity">
+    android:orientation="vertical"
+    >
 
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:fontFamily="sans-serif-black"
-        android:text="@string/joinLottery"
+        android:text="@string/selectTime"
         android:textAlignment="center"
         android:textSize="60sp"
         android:textStyle="bold"
@@ -23,65 +24,70 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/joinButton"
+        android:id="@+id/thirteenThirty"
         android:layout_width="336dp"
         android:layout_height="66dp"
         android:layout_marginBottom="40dp"
         android:backgroundTint="#0ED6B9"
-        android:text="@string/joinLottery"
+        android:text="@string/thirteenThirty"
         android:textColor="#ffffff"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintTop_toBottomOf="@+id/thirteen"
+        app:layout_constraintVertical_bias="0.31" />
 
-    <TextView
-        android:id="@+id/priorInputTV"
-        android:layout_width="340dp"
-        android:layout_height="48dp"
+    <Button
+        android:id="@+id/twelveThirty"
+        android:layout_width="336dp"
+        android:layout_height="66dp"
+
         android:layout_marginTop="48dp"
-        android:text="@string/noPriorInput"
-        android:textSize="20sp"
+        android:backgroundTint="#0ED6B9"
+        android:text="@string/twelveThirty"
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.422"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/twelve" />
+
+    <Button
+        android:id="@+id/thirteen"
+        android:layout_width="336dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="44dp"
+
+        android:backgroundTint="#0ED6B9"
+        android:text="@string/thirteen"
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/twelveThirty" />
+
+    <Button
+        android:id="@+id/twelve"
+        android:layout_width="336dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="44dp"
+
+        android:backgroundTint="#0ED6B9"
+
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:text="@string/twelve"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/banner" />
-
-    <Button
-        android:id="@+id/dateButton"
-        android:layout_width="336dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="84dp"
-
-        android:backgroundTint="#0ED6B9"
-        android:text="@string/selectDate"
-        android:textColor="#ffffff"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priorInputTV" />
-
-    <Button
-        android:id="@+id/timeButton"
-        android:layout_width="336dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="64dp"
-
-        android:backgroundTint="#0ED6B9"
-        android:text="@string/selectTime"
-        android:textColor="#ffffff"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

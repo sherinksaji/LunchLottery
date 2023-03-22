@@ -13,8 +13,17 @@
     <string name="registerUser">Register User</string>
     <string name="telegramHandle">Telegram Handle without @</string>
     <string name="addItem">Add Item</string>
+    <string name="joinLottery">Join Lottery</string>
     <string name="item">Item</string>
     <string name="qty">Quantity</string>
+    <string name="noPriorInput">This is the first time your are entering the Lottery.</string>
+    <string name="selectDate">Select Date</string>
+    <string name="selectTime">Select Time</string>
+    <string name="twelve">12:00</string>
+    <string name="twelveThirty">12:30</string>
+    <string name="thirteen">13:00</string>
+    <string name="thirteenThirty">13:30</string>
+    <string name="pickTime">Pick a Time</string>
 
 
 </resources>

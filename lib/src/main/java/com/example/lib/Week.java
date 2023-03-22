@@ -15,6 +15,13 @@ public class Week {
      -Think about what happens when it is week 1 of the year, are we going to be able to show the results of week1?
      -Think about the last week of the year, are we going to let user enter the lottery for the next year's first week
 
+
+     -Need a method to tell me what is the minimum date i can enter the lottery for
+
+     -Need a method to tell me what is the maximum date i can enter the lottery for
+
+     -Need a int method to tell me what week i need to display results for
+
      https://docs.oracle.com/javase/7/docs/api/java/util/GregorianCalendar.html
 
      */

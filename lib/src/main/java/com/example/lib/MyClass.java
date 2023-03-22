@@ -8,10 +8,10 @@ import java.util.List;
 public class MyClass {
     public static void main(String[] args) {
         GregorianCalendar gregCal=new GregorianCalendar(2023,
-        5,//June (January is month 0)
-        4,
-        12,
-        0);
+                5,//June (January is month 0)
+                4,
+                12,
+                0);
 
         Entry entry = new Entry ("sherinuhhahaha",gregCal);
         System.out.println(entry.toString());
@@ -75,7 +75,6 @@ public class MyClass {
          *
          TODO: Implement the EntryComparator
          sort Entry Array by telegramHandle: Shivani
-
          */
 
         /**
@@ -84,25 +83,24 @@ public class MyClass {
          * While waiting for the EntryComparator class to be implemented, use the current order for entryArrayList
          * Create matchArrayList that takes in
          *If entryArrayList length= odd number,
-                * create an Entry that takes in only the gregCal (just use the gregCal instantiated above) as input
-                * whichever Entry object with telegramHandle gets paired with the above empty TelegramHandle wont \
-                *have a match (already implemented in toString method in Entry class)
-                *add this Entry object with no telegramHandle into the entryArrayList
+         * create an Entry that takes in only the gregCal (just use the gregCal instantiated above) as input
+         * whichever Entry object with telegramHandle gets paired with the above empty TelegramHandle wont \
+         *have a match (already implemented in toString method in Entry class)
+         *add this Entry object with no telegramHandle into the entryArrayList
          * now that the entryArrayList length is even,
-                *use entryArrayList and Pair class to create pairs
-                *the created pairs will be added to a pair array list called pairArrayList
+         *use entryArrayList and Pair class to create pairs
+         *the created pairs will be added to a pair array list called pairArrayList
          * Feel free to modify any classes
          */
         /**
          TODO: Implement Methods/classes to display result to current user
-
          *currently the user is set to sherinuhhahaha
-          * input pairArrayList, entryArrayList
-          * if user is not in entryArrayList, they should not see any result
-          * if user is in entryArrayList,
-                *usePairArrayList to find out who the currentUser's match is using methods in Pair class
-          * make changes to Pair class and Entry class as u wish
-          * Feel free to modify any classes
+         * input pairArrayList, entryArrayList
+         * if user is not in entryArrayList, they should not see any result
+         * if user is in entryArrayList,
+         *usePairArrayList to find out who the currentUser's match is using methods in Pair class
+         * make changes to Pair class and Entry class as u wish
+         * Feel free to modify any classes
          */
         String currentUser="sherinuhhahaha";
 

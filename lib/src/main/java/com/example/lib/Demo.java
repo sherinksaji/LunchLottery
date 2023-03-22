@@ -16,7 +16,7 @@ public class Demo {
 //       System.out.println(e.displayResultToMatch());
 
 
-        Entry blankEntry = new Entry(gregCal);
+        Entry blankEntry = new Entry (gregCal);
 //       System.out.println(blankEntry.toString());
 //        System.out.println(blankEntry.displayResultToMatch());
 
