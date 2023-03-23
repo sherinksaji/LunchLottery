@@ -278,13 +278,13 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         String timeButtonStr = timePickerBtn.getText().toString().trim();
 
 
-        if (dateButtonStr.isEmpty()){
-            Toast.makeText(InputActivity.this,"Title is required!",Toast.LENGTH_LONG).show();
+        if (dateButtonStr.equalsIgnoreCase("select date")){
+            Toast.makeText(InputActivity.this,"Please select date!",Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (timeButtonStr.isEmpty()){
-            Toast.makeText(InputActivity.this,"Quantity is required!",Toast.LENGTH_LONG).show();
+        if (timeButtonStr.equalsIgnoreCase("select time")){
+            Toast.makeText(InputActivity.this,"Please select time!",Toast.LENGTH_LONG).show();
             return;
         }
 

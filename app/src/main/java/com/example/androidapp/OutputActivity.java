@@ -46,9 +46,7 @@ public class OutputActivity extends AppCompatActivity {
         readWeek();
     }
 
-    /**
-     *no prior input:
-     * */
+
 
     private void  readWeek(){
         entryArrayList=new ArrayList<>();
