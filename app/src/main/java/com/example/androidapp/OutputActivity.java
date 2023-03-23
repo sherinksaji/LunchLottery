@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lib.Entry;
 import com.example.lib.Ticket;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,43 +47,60 @@ public class OutputActivity extends AppCompatActivity {
     }
 
     /**
-     *no prior input: i plan on making the output button invisible
+     *no prior input:
      * */
 
     private void  readWeek(){
         entryArrayList=new ArrayList<>();
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            @NonNull
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    String readWeekStr="";
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                        Ticket ticket = postSnapshot.getValue(Ticket.class);
-                        Entry entry=new Entry(ticket);
-                        if (entry.calStr().equals(priorInput)){
-                            entryArrayList.add(entry);
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Cannot read user telegram handle", task.getException());
+                    Toast.makeText(OutputActivity.this,"Cannot read your result, log out and try again",Toast.LENGTH_LONG);
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(OutputActivity.this, LoginActivity.class));
+                }
+                else {
+                    DataSnapshot dataSnapshot=task.getResult();
+                    if (dataSnapshot.exists()){
+                        String readWeekStr="";
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                            Ticket ticket = postSnapshot.getValue(Ticket.class);
+                            Entry entry=new Entry(ticket);
+                            if (entry.calStr().equals(priorInput)){
+                                entryArrayList.add(entry);
+                            }
+
+                        }
+                        for (Entry entry:entryArrayList){
+                            readWeekStr+=entry.toString();
+                            readWeekStr+=", ";
                         }
 
+                        /**
+                         * TODO: Call your processing methods here
+                         * (Entry ArrayList exists as populated here)
+                         * */
+                        TV.setText(readWeekStr);
                     }
-                    for (Entry entry:entryArrayList){
-                        readWeekStr+=entry.toString();
-                        readWeekStr+=", ";
+                    else{
+                        //dont know why it gets blank
+                        Log.i("else", "Still in else block.");//didnt work
+                        TV.setText("You did not input for Week10");
                     }
-                    TV.setText(readWeekStr);
                 }
-                else{
-                    //dont know why it gets blank
-                    Log.i("else", "Still in else block.");//didnt work
-                    TV.setText("You did not input for Week10");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.i("readWeek", "Failed to read value.", error.toException());
             }
         });
+
     }
+
+
+    /**TODO: Process entryArrayList using Pair and create_Pair
+     * Please import the classes from the lib module so that we
+     * can keep backend separate from frontend
+     *
+     *
+     * */
+
 }
