@@ -1,16 +1,17 @@
 <resources>
     <string name="appName">LunchLottery</string>
-    <string name="motto">Motto</string>
+    <string name="motto">Eat together</string>
     <string name="emailAddress">Email address</string>
     <string name="resetPassword">Reset Password</string>
     <string name="logout">Logout</string>
     <string name="login">Login</string>
-    <string name="input">Input</string>
-    <string name="output">Output</string>
+    <string name="input">Join Next Week Lottery</string>
+    <string name="output">View This Week Result</string>
     <string name="password">Password</string>
     <string name="forgotPasswordQn">Forgot Password?</string>
     <string name="register">Register</string>
     <string name="registerUser">Register User</string>
+    <string name="welcomeMsg">Welcome, username</string>
     <string name="telegramHandle">Telegram Handle without @</string>
     <string name="addItem">Add Item</string>
     <string name="joinLottery">Join Lottery</string>

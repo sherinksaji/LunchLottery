@@ -45,7 +45,12 @@ public class HomeActivity extends AppCompatActivity{
 
 
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        weekNode="Week10";//result week , waiting for Rosa to implement
+
+
+        /**
+         *needed Week Method: public String weekForViewResult ()
+         */
+        weekNode="Week10";
 
         userRef= FirebaseDatabase.getInstance().getReference("Users").child(myUID);
         weekRef=FirebaseDatabase.getInstance().getReference().child(weekNode);
@@ -90,11 +95,18 @@ public class HomeActivity extends AppCompatActivity{
         OutputButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                if (priorInput.equalsIgnoreCase("noPriorInput")){
+                    Intent AltOutputIntent=new Intent(HomeActivity.this, AlternateOutputActivity.class);
+                    startActivity(AltOutputIntent);
+                }
 
-                Intent InputIntent=new Intent(HomeActivity.this, OutputActivity.class);
-                InputIntent.putExtra("telegramHandle",telegramHandle);
-                InputIntent.putExtra("priorInput",priorInput);
-                startActivity(InputIntent);
+                else{
+                    Intent OutputIntent=new Intent(HomeActivity.this, OutputActivity.class);
+                    OutputIntent.putExtra("telegramHandle",telegramHandle);
+                    OutputIntent.putExtra("priorInput",priorInput);
+                    startActivity(OutputIntent);
+                }
+
             }
         });
 
@@ -150,5 +162,6 @@ public class HomeActivity extends AppCompatActivity{
             }
         });
     }
+    //https://firebase.google.com/docs/database/web/read-and-write
 
 }

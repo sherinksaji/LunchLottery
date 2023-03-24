@@ -41,6 +41,9 @@ public class OutputActivity extends AppCompatActivity {
         Intent intent=getIntent();
         currentUser=intent.getStringExtra("telegramHandle");
         priorInput=intent.getStringExtra("priorInput");
+        /**
+         *needed Week Method: public String weekForViewResult ()
+         */
         ref = FirebaseDatabase.getInstance().getReference().child("Week10");
         TV=(TextView) findViewById(R.id.outputTV);
         readWeek();
@@ -92,7 +95,7 @@ public class OutputActivity extends AppCompatActivity {
         });
 
     }
-
+    //https://firebase.google.com/docs/database/web/read-and-write
 
     /**TODO: Process entryArrayList using Pair and create_Pair
      * Please import the classes from the lib module so that we

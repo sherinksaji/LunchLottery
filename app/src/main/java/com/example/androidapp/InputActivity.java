@@ -78,7 +78,10 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        weekNode="Week10";
+        /**
+         *needed Week Method: public String weekForJoinLottery ()
+         */
+        weekNode="Week11";
 
         ref = FirebaseDatabase.getInstance().getReference();
 
@@ -183,8 +186,13 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         // If we want the same current day to be the MIN
         // day, then mCalendar is already set to today and
         // the below code will be unnecessary
-        final int minDay = 27;
-        final int minMonth = 3;
+        /**
+         *needed Week Method: public int minDayForJoinLottery ()
+         *needed Week Method: public int minMonthForJoinLottery ()
+         *needed Week Method: public int minYearForJoinLottery ()
+         */
+        final int minDay = 3;
+        final int minMonth = 4;
         final int minYear = 2023;
         gregCal.set(minYear, minMonth - 1, minDay);
         datePickerDialog.getDatePicker().setMinDate(
@@ -192,8 +200,13 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         // Changing mCalendar date from current to
         // some random MAX day 20/08/2021 20 Aug 2021
-        final int maxDay = 31;
-        final int maxMonth = 3;
+        /**
+         *needed Week Method: public int maxDayForJoinLottery ()
+         *needed Week Method: public int maxMonthForJoinLottery ()
+         *needed Week Method: public int maxYearForJoinLottery ()
+         */
+        final int maxDay = 7;
+        final int maxMonth = 4;
         final int maxYear = 2023;
         gregCal.set(maxYear, maxMonth - 1, maxDay);
         datePickerDialog.getDatePicker().setMaxDate(
@@ -300,7 +313,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         Log.i("calStr",entry.calStr());
         Ticket ticket=entry.fbTicket();
 
-        ref.child("Week10").child(telegramHandle).setValue(ticket).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.child(weekNode).child(telegramHandle).setValue(ticket).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
