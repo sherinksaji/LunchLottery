@@ -6,18 +6,17 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
+
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.lib.Entry;
@@ -37,15 +36,14 @@ import java.util.Objects;
 
 public class InputActivity extends AppCompatActivity implements View.OnClickListener{
 
-    EditText editTextItemName, editTextQuantity;
+
 
     Button datePickerBtn,timePickerBtn,joinButton;
 
 
 
     DatabaseReference ref;
-    DatabaseReference userInfoRef;
-    DatabaseReference writeRef;
+
 
     String myUID;
     String telegramHandle;
@@ -53,7 +51,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     GregorianCalendar selectedDateTime;
     String weekNode;
-
+    final int[] checkedItem= new int [1];
 
 
     @Override
@@ -90,6 +88,11 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
 
         readPriorInput();
+
+        // single item array instance to store which element is selected by user initially
+        // it should be set to zero meaning none of the element is selected by default
+        checkedItem[0]=-1;
+
     }
 
     @Override
@@ -99,7 +102,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 datePicker();
                 break;
             case R.id.timeButton:
-                showTimePickerDialog();
+                timePicker();
                 break;
             case R.id.joinButton:
                 checkInput();
@@ -201,76 +204,72 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         //https://www.geeksforgeeks.org/set-min-and-max-selectable-dates-in-datepicker-dialog-in-android/?ref=rp
     }
 
+    public void timePicker(){
+        // AlertDialog builder instance to build the alert dialog
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InputActivity.this);
+        // title of the alert dialog
+        alertDialog.setTitle("Select Time");
+
+        // list of the items to be displayed to the user in the
+        // form of list so that user can select the item from
+        final String[] listItems = new String[]{"12:00", "12:30", "13:00","13:30"};
+
+        // the function setSingleChoiceItems is the function which
+        // builds the alert dialog with the single item selection
+
+        alertDialog.setSingleChoiceItems(listItems, checkedItem[0], (dialog, which) -> {
+            // update the selected item which is selected by the user so that it should be selected
+            // when user opens the dialog next time and pass the instance to setSingleChoiceItems method
+            checkedItem[0] = which;
+            // now also update the TextView which previews the selected item
+            timePickerBtn.setText(listItems[which]);
+
+            switch(which){
+                case 0:
+
+                    selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,12);
+                    selectedDateTime.set(GregorianCalendar.MINUTE,0);
+
+                    break;
+                case 1:
+
+                    selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,12);
+                    selectedDateTime.set(GregorianCalendar.MINUTE,30);
+
+                    break;
+                case 2:
+
+                    selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,13);
+                    selectedDateTime.set(Calendar.MINUTE,0);
+
+                    break;
+                case 3:
+
+                    selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,13);
+                    selectedDateTime.set(GregorianCalendar.MINUTE,30);
+
+                    break;
+            }
+
+            // when selected an item the dialog should be closed with the dismiss method
+            dialog.dismiss();
+
+        });
 
 
 
-    private void showTimePickerDialog() {
+        // set the negative button if the user is not interested to select or change already selected item
+        alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
 
-        DialogFragment dialogFragment = new TimePickerDialogFragment();
-        dialogFragment.show(getSupportFragmentManager(), "time_picker");
+        });
 
-        switch(TimePickerDialogFragment.getIndex()){
+        // create and build the AlertDialog instance with the AlertDialog builder instance
+        AlertDialog customAlertDialog = alertDialog.create();
 
-            case -1:
-                timePickerBtn.setText("Select time");
-
-            case 0:
-                timePickerBtn.setText("12:00");
-                selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,12);
-                selectedDateTime.set(GregorianCalendar.MINUTE,0);
-
-                break;
-            case 1:
-                timePickerBtn.setText("12:30");
-                selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,12);
-                selectedDateTime.set(GregorianCalendar.MINUTE,30);
-
-                break;
-            case 2:
-                timePickerBtn.setText("13:00");
-                selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,13);
-                selectedDateTime.set(Calendar.MINUTE,0);
-
-                break;
-            case 3:
-                timePickerBtn.setText("13:30");
-                selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,13);
-                selectedDateTime.set(GregorianCalendar.MINUTE,30);
-
-                break;
-
-        }
-
+        // show the alert dialog when the button is clicked
+        customAlertDialog.show();
     }
-
-    public static class TimePickerDialogFragment extends DialogFragment {
-
-        private static int index=-1;
-
-        public static int getIndex() {
-            return index;
-        }
-
-        public static void setIndex(int index) {
-            TimePickerDialogFragment.index = index;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.pickTime)
-                    .setItems(R.array.timings_array, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            setIndex(which);
-                        }
-                    });
-            return builder.create();
-        }
-    }
-
-
-
-
+    //https://www.geeksforgeeks.org/alert-dialog-with-singleitemselection-in-android/
 
 
     public void checkInput(){
