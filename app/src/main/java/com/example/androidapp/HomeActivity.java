@@ -32,7 +32,9 @@ public class HomeActivity extends AppCompatActivity{
     DatabaseReference userRef;
     DatabaseReference weekRef;
     String myUID;
-
+    Button OutputButton;
+    Button InputButton;
+    Button LogoutButton;
     TextView TV;
     String telegramHandle;
     String weekNode;
@@ -66,8 +68,8 @@ public class HomeActivity extends AppCompatActivity{
 
 
 
-        Button logout=(Button)findViewById(R.id.signOut);
-        logout.setOnClickListener(new View.OnClickListener(){
+        LogoutButton=(Button)findViewById(R.id.signOut);
+        LogoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 FirebaseAuth.getInstance().signOut();
@@ -77,7 +79,7 @@ public class HomeActivity extends AppCompatActivity{
         });
 
 
-        Button InputButton=(Button)findViewById(R.id.Input);
+        InputButton=(Button)findViewById(R.id.Input);
         InputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,21 +93,16 @@ public class HomeActivity extends AppCompatActivity{
 
 
 
-        Button OutputButton=(Button)findViewById(R.id.Output);
+        OutputButton=(Button)findViewById(R.id.Output);
         OutputButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if (priorInput.equalsIgnoreCase("noPriorInput")){
-                    Intent AltOutputIntent=new Intent(HomeActivity.this, AlternateOutputActivity.class);
-                    startActivity(AltOutputIntent);
-                }
 
-                else{
-                    Intent OutputIntent=new Intent(HomeActivity.this, OutputActivity.class);
-                    OutputIntent.putExtra("telegramHandle",telegramHandle);
-                    OutputIntent.putExtra("priorInput",priorInput);
-                    startActivity(OutputIntent);
-                }
+                Intent OutputIntent=new Intent(HomeActivity.this, OutputActivity.class);
+                OutputIntent.putExtra("telegramHandle",telegramHandle);
+                OutputIntent.putExtra("priorInput",priorInput);
+                startActivity(OutputIntent);
+
 
             }
         });
@@ -156,6 +153,8 @@ public class HomeActivity extends AppCompatActivity{
                     }
                     else{
                         priorInput="noPriorInput";
+                        OutputButton.setVisibility(View.GONE);
+
                     }
                     Log.i("priorInput",priorInput);
                 }
