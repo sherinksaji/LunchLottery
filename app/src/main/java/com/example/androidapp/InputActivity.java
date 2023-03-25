@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,7 +49,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     String myUID;
     String telegramHandle;
     TextView priorInputTV;
-
+    TextView deleteEntryTV;
     GregorianCalendar selectedDateTime;
     String weekNode;
     final int[] checkedItem= new int [1];
@@ -74,7 +75,8 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         priorInputTV=(TextView) findViewById(R.id.priorInputTV);
 
-
+        deleteEntryTV=(TextView) findViewById(R.id.deleteEntryTV);
+        deleteEntryTV.setOnClickListener(this);
 
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
@@ -110,6 +112,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
             case R.id.joinButton:
                 checkInput();
                 break;
+            case R.id.deleteEntryTV:
+                deleteEntryDialog();
+                break;
 
         }
     }
@@ -127,6 +132,15 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                     Log.i(TAG, "entryValue: "+entry.toString());
                     priorInputTV.setText("Current entry: "+entry.calStr());
                     joinButton.setText("Edit entry");
+                    deleteEntryTV.setVisibility(View.VISIBLE);
+
+                }
+                else{
+                    priorInputTV.setText("This is the first time your are entering the Lottery.");
+                    joinButton.setText("Join Lottery");
+                    timePickerBtn.setText("Select Time");
+                    datePickerBtn.setText("Select Date");
+                    deleteEntryTV.setVisibility(View.GONE);
                 }
             }
 
@@ -318,11 +332,65 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(InputActivity.this,"Joined lottery successfully", Toast.LENGTH_LONG).show();
+                    timePickerBtn.setText("Select Time");
+                    datePickerBtn.setText("Select Date");
+
 
                 }
                 else {
 
                     Toast.makeText(InputActivity.this,"Unable to join lottery! "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void deleteEntryDialog(){
+        // Create the object of AlertDialog Builder class
+        AlertDialog.Builder builder = new AlertDialog.Builder(InputActivity.this);
+
+        // Set the message show for the Alert time
+        builder.setMessage("Do you want to delete your entry into the lottery?");
+
+
+        // Set Alert Title
+        builder.setTitle("Delete Entry");
+
+        // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+        builder.setCancelable(false);
+
+        // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+        builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+            deleteEntry();
+
+        });
+
+        // Set the Negative button with No name Lambda OnClickListener method is use of DialogInterface interface.
+        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            // If user click no then dialog box is canceled.
+            dialog.cancel();
+        });
+
+        // Create the Alert dialog
+        AlertDialog alertDialog = builder.create();
+        // Show the Alert Dialog box
+        alertDialog.show();
+    }
+
+    public void deleteEntry(){
+        ref.child(weekNode).child(telegramHandle).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(InputActivity.this,"Deleted entry successfully!", Toast.LENGTH_LONG).show();
+
+
+                }
+                else {
+
+                    Toast.makeText(InputActivity.this,"Unable to delete entry! "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
 
                 }
             }

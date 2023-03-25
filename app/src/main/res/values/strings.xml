@@ -15,6 +15,7 @@
     <string name="telegramHandle">Telegram Handle without @</string>
     <string name="addItem">Add Item</string>
     <string name="joinLottery">Join Lottery</string>
+    <string name="deleteEntry">Delete Entry</string>
     <string name="item">Item</string>
     <string name="qty">Quantity</string>
     <string name="noPriorInput">This is the first time your are entering the Lottery.</string>
