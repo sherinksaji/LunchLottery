@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
-
+import com.example.lib.User;
 public class HomeActivity extends AppCompatActivity{
     DatabaseReference userRef;
     DatabaseReference weekRef;

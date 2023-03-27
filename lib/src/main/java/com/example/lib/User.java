@@ -1,4 +1,6 @@
-package com.example.androidapp;
+package com.example.lib;
+
+
 
 public class User {
     private String telegramHandle;

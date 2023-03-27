@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
-
+import com.example.lib.User;
 public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener{
 
 

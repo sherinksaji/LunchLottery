@@ -82,9 +82,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editTextTelegramHandle.requestFocus();
             return;
         }
-        if (telegramHandle.contains("@")){
-            editTextTelegramHandle.setError("Enter Telegram handle without @");
-        }
 
         String email=telegramHandle+"@example.com";
 
