@@ -10,7 +10,7 @@ public class create_pair {
 
         Collections.shuffle(lst, new Random(100));
         if (lst.size()==1){
-            Store_pair.add(new Pair((lst.get(0).getTelegramHandle()),"Sorry no pair found.\nTry again next week"));
+            Store_pair.add(new Pair((lst.get(0).getTelegramHandle()),"No one signed up"));
         }
         else if (lst.size()%2==1){
             Store_pair.add(new Pair((lst.get(0).getTelegramHandle()),(lst.get(1).getTelegramHandle()),(lst.get(2).getTelegramHandle())));

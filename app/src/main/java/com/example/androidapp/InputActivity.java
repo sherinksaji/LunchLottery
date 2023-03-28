@@ -2,14 +2,8 @@ package com.example.androidapp;
 
 import static android.content.ContentValues.TAG;
 
-
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.lib.Entry;
 import com.example.lib.Ticket;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,7 +38,6 @@ import java.util.TimeZone;
 public class InputActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-
     Button datePickerBtn,timePickerBtn,joinButton;
 
 
@@ -55,6 +51,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     TextView deleteEntryTV;
     GregorianCalendar selectedDateTime;
     String weekNode;
+    TextView back;
     final int[] checkedItem= new int [1];
 
 
@@ -81,6 +78,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         deleteEntryTV=(TextView) findViewById(R.id.deleteEntryTV);
         deleteEntryTV.setOnClickListener(this);
 
+        back = findViewById(R.id.back);
+        back.setOnClickListener(this);
+
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         /**
@@ -106,6 +106,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v){
         switch(v.getId()){
+            case R.id.back:
+                startActivity(new Intent(InputActivity.this, HomeActivity.class));
+                break;
             case R.id.dateButton:
                 datePicker();
                 break;
@@ -121,6 +124,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         }
     }
+
     private void  readPriorInput(){
         ref.child(weekNode).child(telegramHandle).addValueEventListener(new ValueEventListener() {
             @Override
@@ -133,13 +137,14 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                     Ticket ticket= dataSnapshot.getValue(Ticket.class);
                     Entry entry=new Entry(ticket);
                     Log.i(TAG, "entryValue: "+entry.toString());
+                    Log.i(TAG, "entrytime: "+selectedDateTime);
                     priorInputTV.setText("Current entry: "+entry.calStr());
                     joinButton.setText("Edit entry");
                     deleteEntryTV.setVisibility(View.VISIBLE);
 
                 }
                 else{
-                    priorInputTV.setText("This is the first time your are entering the Lottery.");
+                    priorInputTV.setText("You have not entered the Lottery.");
                     joinButton.setText("Join Lottery");
                     timePickerBtn.setText("Select Time");
                     datePickerBtn.setText("Select Date");

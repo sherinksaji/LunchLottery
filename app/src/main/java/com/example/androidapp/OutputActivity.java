@@ -1,15 +1,12 @@
 package com.example.androidapp;
 
-import static android.content.ContentValues.TAG;
-//import lib.main.java.com.example.lib.*;
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,13 +18,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class OutputActivity extends AppCompatActivity {
@@ -35,9 +29,17 @@ public class OutputActivity extends AppCompatActivity {
     DatabaseReference ref;
     TextView TV;
     TextView timeTV;
+    TextView result;
+    TextView eat;
+    ImageView left_spark;
+    ImageView right_spark;
+    TextView back;
+
+    pl.droidsonroids.gif.GifImageView fail;
     String currentUser;
     String priorInput;
     ArrayList<Entry> entryArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,19 @@ public class OutputActivity extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
         TV=(TextView) findViewById(R.id.outputTV);
         timeTV=(TextView) findViewById(R.id.timeTV);
+        result=(TextView) findViewById(R.id.congrats);
+        fail =(pl.droidsonroids.gif.GifImageView) findViewById(R.id.gifImageView);
+        eat = findViewById(R.id.eat);
+        left_spark = findViewById(R.id.left_spark);
+        right_spark = findViewById(R.id.right_spark);
+        back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OutputActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
         readWeek();
     }
 
@@ -92,8 +107,16 @@ public class OutputActivity extends AppCompatActivity {
                          * */
                         //TV.setText("none");
                         TV.setText(cp.find_pair(cp.getStore_pair(),currentUser));
+                        if (cp.find_pair(cp.getStore_pair(),currentUser).equalsIgnoreCase("No one signed up")){
+                            result.setText("Oh No");
+                            fail.setImageResource(R.drawable.sorry);
+                            eat.setText("Try Again");
+                            left_spark.setImageResource(R.drawable.plain);
+                            right_spark.setImageResource(R.drawable.plain);
+                        }
                         Log.i("test",cp.find_pair(cp.getStore_pair(),currentUser));
-                        timeTV.setText(priorInput);
+                        timeTV.setText(priorInput.replace(" ","\n"));
+                        //Log.i("test2",priorInput.replace(" ","\n"));
                         Log.i("test2",priorInput);
                     }
                     else{
