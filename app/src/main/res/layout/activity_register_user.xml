@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#efe3d6"
     tools:context=".RegisterUserActivity">
 
     <TextView
@@ -26,8 +27,9 @@
         android:layout_width="321dp"
         android:layout_height="69dp"
         android:layout_marginTop="144dp"
-        android:backgroundTint="#0ED6B9"
+
         android:text="@string/registerUser"
+        android:backgroundTint="#766052"
         android:textColor="#ffffff"
         android:textSize="26sp"
         android:textStyle="bold"

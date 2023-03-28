@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#efe3d6"
     tools:context=".InputActivity">
 
 
@@ -27,7 +28,7 @@
         android:layout_width="336dp"
         android:layout_height="66dp"
         android:layout_marginTop="60dp"
-        android:backgroundTint="#0ED6B9"
+        android:backgroundTint="#766052"
         android:text="@string/joinLottery"
         android:textColor="#ffffff"
         android:textSize="26sp"
@@ -55,7 +56,7 @@
         android:layout_height="66dp"
         android:layout_marginTop="36dp"
 
-        android:backgroundTint="#0ED6B9"
+        android:backgroundTint="#766052"
         android:text="@string/selectDate"
         android:textColor="#ffffff"
         android:textSize="26sp"
@@ -71,7 +72,7 @@
         android:layout_height="66dp"
         android:layout_marginTop="48dp"
 
-        android:backgroundTint="#0ED6B9"
+        android:backgroundTint="#766052"
         android:text="@string/selectTime"
         android:textColor="#ffffff"
         android:textSize="26sp"

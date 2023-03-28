@@ -13,7 +13,7 @@ public class Pair {
 
     public Pair(String id, String partner, String partner2) { //only used when entry array list is odd numbered
         this.id = id;
-        this.partner = partner + ", " + partner2;
+        this.partner = partner + ",\n" + partner2;
     }
 
     public String getId() {

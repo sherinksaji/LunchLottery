@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#efe3d6"
     tools:context=".LoginActivity">
 
     <TextView
@@ -26,7 +27,7 @@
         android:layout_width="336dp"
         android:layout_height="66dp"
         android:layout_marginTop="80dp"
-        android:backgroundTint="#512DA8"
+        android:backgroundTint="#766052"
         android:text="@string/login"
         android:textColor="#ffffff"
         android:textSize="26sp"

@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#efe3d6"
     tools:context=".HomeActivity">
 
     <TextView
         android:id="@+id/textName"
+        android:textColor="#766052"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -21,6 +23,7 @@
 
     <TextView
         android:id="@+id/banner2"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -36,6 +39,7 @@
 
     <TextView
         android:id="@+id/bannerDescription"
+        android:textColor="#766052"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -52,9 +56,10 @@
         android:id="@+id/signOut"
         android:layout_width="287dp"
         android:layout_height="85dp"
-        android:backgroundTint="#0ED6B9"
-        android:text="@string/logout"
 
+        android:backgroundTint="#766052"
+        android:text="@string/logout"
+        android:textColor="#ffffff"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,8 +72,8 @@
         android:id="@+id/Input"
         android:layout_width="298dp"
         android:layout_height="85dp"
-        android:backgroundTint="#0ED6B9"
         android:text="@string/input"
+        android:backgroundTint="#766052"
         android:textColor="#ffffff"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -82,8 +87,9 @@
         android:id="@+id/Output"
         android:layout_width="291dp"
         android:layout_height="86dp"
-        android:backgroundTint="#0ED6B9"
+
         android:text="@string/output"
+        android:backgroundTint="#766052"
         android:textColor="#ffffff"
         android:textSize="26sp"
         android:textStyle="bold"
