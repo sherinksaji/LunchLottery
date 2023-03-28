@@ -44,7 +44,8 @@ public class OutputActivity extends AppCompatActivity {
         /**
          *needed Week Method: public String weekForViewResult ()
          */
-        ref = FirebaseDatabase.getInstance().getReference().child("Week10");
+        String weekNode= "Week10";
+        ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
         TV=(TextView) findViewById(R.id.outputTV);
         readWeek();
     }
