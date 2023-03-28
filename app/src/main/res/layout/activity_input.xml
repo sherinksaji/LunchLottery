@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efe3d6"
+    android:background="@color/background"
     tools:context=".InputActivity">
 
 
@@ -12,75 +12,31 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:fontFamily="sans-serif-black"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/playfair"
         android:text="@string/joinLottery"
         android:textAlignment="center"
         android:textSize="60sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/joinButton"
-        android:layout_width="336dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="60dp"
-        android:backgroundTint="#766052"
-        android:text="@string/joinLottery"
-        android:textColor="#ffffff"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
-
-    <TextView
-        android:id="@+id/priorInputTV"
-        android:layout_width="340dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="48dp"
-        android:text="@string/noPriorInput"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.422"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner" />
-
-    <Button
         android:id="@+id/dateButton"
         android:layout_width="336dp"
         android:layout_height="66dp"
-        android:layout_marginTop="36dp"
-
-        android:backgroundTint="#766052"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_button"
         android:text="@string/selectDate"
         android:textColor="#ffffff"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priorInputTV" />
-
-    <Button
-        android:id="@+id/timeButton"
-        android:layout_width="336dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="48dp"
-
-        android:backgroundTint="#766052"
-        android:text="@string/selectTime"
-        android:textColor="#ffffff"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
     <TextView
         android:id="@+id/deleteEntryTV"
@@ -89,12 +45,68 @@
         android:text="@string/deleteEntry"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/aleo_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinButton"
-        app:layout_constraintVertical_bias="0.418" />
+        app:layout_constraintVertical_bias="0.561" />
+
+    <Button
+        android:id="@+id/timeButton"
+        android:layout_width="336dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/round_button"
+        android:text="@string/selectTime"
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
+
+    <TextView
+        android:id="@+id/priorInputTV"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/noPriorInput"
+        android:textSize="20sp"
+        android:fontFamily="@font/aleo_regular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/banner" />
+
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="336dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/round_button"
+        android:padding="6dp"
+        android:text="@string/joinLottery"
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
+
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/back"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
