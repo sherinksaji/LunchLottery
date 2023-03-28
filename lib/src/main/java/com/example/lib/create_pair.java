@@ -9,7 +9,10 @@ public class create_pair {
     public void Create(ArrayList<Entry> lst){ //create pairs from entry array list
 
         Collections.shuffle(lst, new Random(100));
-        if (lst.size()%2==1){
+        if (lst.size()==1){
+            Store_pair.add(new Pair((lst.get(0).getTelegramHandle()),"Sorry no pair found.\nTry again next week"));
+        }
+        else if (lst.size()%2==1){
             Store_pair.add(new Pair((lst.get(0).getTelegramHandle()),(lst.get(1).getTelegramHandle()),(lst.get(2).getTelegramHandle())));
             Store_pair.add(new Pair((lst.get(1).getTelegramHandle()),(lst.get(0).getTelegramHandle()),(lst.get(2).getTelegramHandle())));
             Store_pair.add(new Pair((lst.get(2).getTelegramHandle()),(lst.get(0).getTelegramHandle()),(lst.get(1).getTelegramHandle())));
@@ -35,7 +38,7 @@ public class create_pair {
                 return lst.get(i).getPartner();
             }
         }
-        return "No Partner"; //everyone should have a partner unless only one person in the time slot, which we would show no partner.
+        return "No Pair found"; //everyone should have a partner unless only one person in the time slot, which we would show no partner.
     }
 
 }

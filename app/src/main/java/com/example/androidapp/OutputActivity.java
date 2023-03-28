@@ -1,6 +1,8 @@
 package com.example.androidapp;
 
 import static android.content.ContentValues.TAG;
+//import lib.main.java.com.example.lib.*;
+import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lib.Entry;
 import com.example.lib.Ticket;
+import com.example.lib.create_pair;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +34,7 @@ public class OutputActivity extends AppCompatActivity {
 
     DatabaseReference ref;
     TextView TV;
+    TextView timeTV;
     String currentUser;
     String priorInput;
     ArrayList<Entry> entryArrayList;
@@ -47,13 +51,12 @@ public class OutputActivity extends AppCompatActivity {
         String weekNode= "Week10";
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
         TV=(TextView) findViewById(R.id.outputTV);
+        timeTV=(TextView) findViewById(R.id.timeTV);
         readWeek();
     }
 
-
-
     private void  readWeek(){
-        entryArrayList=new ArrayList<>();
+        entryArrayList = new ArrayList<Entry>();
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -70,6 +73,7 @@ public class OutputActivity extends AppCompatActivity {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                             Ticket ticket = postSnapshot.getValue(Ticket.class);
                             Entry entry=new Entry(ticket);
+                            //Log.i("time",entry.calStr());
                             if (entry.calStr().equals(priorInput)){
                                 entryArrayList.add(entry);
                             }
@@ -79,12 +83,18 @@ public class OutputActivity extends AppCompatActivity {
                             readWeekStr+=entry.toString();
                             readWeekStr+=", ";
                         }
+                        create_pair cp = new create_pair();
+                        cp.Create(entryArrayList);
 
                         /**
                          * TODO: Call your processing methods here
                          * (Entry ArrayList exists as populated here)
                          * */
-                        TV.setText(readWeekStr);
+                        //TV.setText("none");
+                        TV.setText(cp.find_pair(cp.getStore_pair(),currentUser));
+                        Log.i("test",cp.find_pair(cp.getStore_pair(),currentUser));
+                        timeTV.setText(priorInput);
+                        Log.i("test2",priorInput);
                     }
                     else{
                         //dont know why it gets blank
@@ -92,17 +102,22 @@ public class OutputActivity extends AppCompatActivity {
                         TV.setText("You did not input for Week10");
                     }
                 }
+
             }
         });
 
     }
     //https://firebase.google.com/docs/database/web/read-and-write
 
+
+
+}
+
+
+
     /**TODO: Process entryArrayList using Pair and create_Pair
      * Please import the classes from the lib module so that we
      * can keep backend separate from frontend
-     *
+     * done
      *
      * */
-
-}
