@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity{
     Button OutputButton;
     Button InputButton;
     Button LogoutButton;
+
     TextView TV;
     String telegramHandle;
     String weekNode;
@@ -64,6 +65,7 @@ public class HomeActivity extends AppCompatActivity{
 
 
         TV.setText("Welcome, "+telegramHandle);
+
 
 
 

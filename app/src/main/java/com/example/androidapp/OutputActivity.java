@@ -99,7 +99,7 @@ public class OutputActivity extends AppCompatActivity {
                     else{
                         //dont know why it gets blank
                         Log.i("else", "Still in else block.");//didnt work
-                        TV.setText("You did not input for Week10");
+                        TV.setText("Some technical error, try again");
                     }
                 }
 

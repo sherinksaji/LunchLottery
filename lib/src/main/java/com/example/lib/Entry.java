@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class Entry {
@@ -29,11 +30,11 @@ public class Entry {
     }
 
     public Entry(){
-        this("telegramHandle",new GregorianCalendar());
+        this("telegramHandle",new GregorianCalendar(TimeZone.getDefault(), Locale.getDefault()));
     }
 
     public Entry(Ticket ticket){
-        GregorianCalendar gregCal=new GregorianCalendar();
+        GregorianCalendar gregCal=new GregorianCalendar(TimeZone.getDefault(), Locale.getDefault());
         gregCal.setTimeInMillis(ticket.getBookingTimeStamp());
         this.telegramHandle= ticket.getTelegramHandle();
         this.bookingTimeStamp=gregCal.getTime().getTime();
@@ -56,14 +57,14 @@ public class Entry {
     }
 
     private GregorianCalendar getGregCal(){
-        GregorianCalendar gregCal = new GregorianCalendar();
+        GregorianCalendar gregCal = new GregorianCalendar(TimeZone.getDefault(), Locale.getDefault());
         gregCal.setTimeInMillis(this.bookingTimeStamp);
         return gregCal;
     }
 
     public String calStr (){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("SGT"));
+        dateFormat.setTimeZone(TimeZone.getDefault());
         String dateTimeString = dateFormat.format(this.getGregCal().getTime());
         return dateTimeString;
     }

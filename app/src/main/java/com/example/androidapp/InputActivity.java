@@ -31,9 +31,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 public class InputActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -69,7 +72,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         timePickerBtn = (Button) findViewById(R.id.timeButton);
         timePickerBtn.setOnClickListener(this);
-     
+
         joinButton = (Button) findViewById(R.id.joinButton);
         joinButton.setOnClickListener(this);
 
@@ -87,7 +90,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         ref = FirebaseDatabase.getInstance().getReference();
 
-        selectedDateTime=new GregorianCalendar();
+        selectedDateTime=new GregorianCalendar(TimeZone.getDefault(), Locale.getDefault());
 
         //userInfoRef =ref.child(weekNode).child(telegramHandle);
 
@@ -163,31 +166,32 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         int month = gregCal.get(GregorianCalendar.MONTH);
         int day = gregCal.get(GregorianCalendar.DAY_OF_MONTH);
 
-                // on below line we are creating a variable for date picker dialog.
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        // on below line we are passing context.
-                        InputActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                // on below line we are setting date to our text view.
 
-                                datePickerBtn.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                selectedDateTime.set(GregorianCalendar.DAY_OF_MONTH,dayOfMonth);
-                                selectedDateTime.set(GregorianCalendar.MONTH,monthOfYear);
-                                selectedDateTime.set(GregorianCalendar.YEAR,year);
+        // on below line we are creating a variable for date picker dialog.
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                // on below line we are passing context.
+                InputActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // on below line we are setting date to our text view.
+
+                        datePickerBtn.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        selectedDateTime.set(GregorianCalendar.DAY_OF_MONTH,dayOfMonth);
+                        selectedDateTime.set(GregorianCalendar.MONTH,monthOfYear);
+                        selectedDateTime.set(GregorianCalendar.YEAR,year);
 
 
 
 
-                            }
-                        },
-                        // on below line we are passing year,
-                        // month and day for selected date in our date picker.
-                        year, month, day);
-                // at last we are calling show to
-                // display our date picker dialog.
+                    }
+                },
+                // on below line we are passing year,
+                // month and day for selected date in our date picker.
+                year, month, day);
+        // at last we are calling show to
+        // display our date picker dialog.
         //https://www.geeksforgeeks.org/datepicker-in-android/
 
 
@@ -225,7 +229,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         gregCal.set(maxYear, maxMonth - 1, maxDay);
         datePickerDialog.getDatePicker().setMaxDate(
                 gregCal.getTimeInMillis());
-                datePickerDialog.show();
+        datePickerDialog.show();
         Log.i("dayOfMonthSelectDp", String.valueOf(selectedDateTime.get(GregorianCalendar.DAY_OF_MONTH)));
 
         //https://www.geeksforgeeks.org/set-min-and-max-selectable-dates-in-datepicker-dialog-in-android/?ref=rp
@@ -277,6 +281,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
                     break;
             }
+            Log.i("Timezone", String.valueOf(selectedDateTime.getTimeZone()));
 
             // when selected an item the dialog should be closed with the dismiss method
             dialog.dismiss();
@@ -321,11 +326,13 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     public void addDataUnderWeek()
 
     {
-        Log.i("dayOfMonthSelectAd", String.valueOf(selectedDateTime.get(GregorianCalendar.DAY_OF_MONTH)));
+        Log.i("Hour", String.valueOf(selectedDateTime.get(GregorianCalendar.HOUR_OF_DAY)));
         Entry entry=new Entry(telegramHandle,selectedDateTime);
+
 
         Log.i("calStr",entry.calStr());
         Ticket ticket=entry.fbTicket();
+        Log.i("Before Db", String.valueOf(ticket.getBookingTimeStamp()));
 
         ref.child(weekNode).child(telegramHandle).setValue(ticket).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -404,3 +411,4 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
 
 }
+
