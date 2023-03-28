@@ -26,8 +26,9 @@
     <string name="thirteen">13:00</string>
     <string name="thirteenThirty">13:30</string>
     <string name="pickTime">Pick a Time</string>
-    <string name="matched">YOUR MATCH</string>
-    <string name="timed">CHOSEN TIMING</string>
+    <string name="matched">Your Match</string>
+    <string name="timed">Chosen Time</string>
+    <string name="eat">BON APPETIT</string>
 
 
 
