@@ -3,6 +3,7 @@ package com.example.androidapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +33,13 @@ public class OutputActivity extends AppCompatActivity {
     TextView eat;
     ImageView left_spark;
     ImageView right_spark;
+    TextView back;
 
     pl.droidsonroids.gif.GifImageView fail;
     String currentUser;
     String priorInput;
     ArrayList<Entry> entryArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,14 @@ public class OutputActivity extends AppCompatActivity {
         eat = findViewById(R.id.eat);
         left_spark = findViewById(R.id.left_spark);
         right_spark = findViewById(R.id.right_spark);
+        back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OutputActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
         readWeek();
     }
 
