@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 public class Entry {
     /**
@@ -62,6 +63,7 @@ public class Entry {
 
     public String calStr (){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("SGT"));
         String dateTimeString = dateFormat.format(this.getGregCal().getTime());
         return dateTimeString;
     }
