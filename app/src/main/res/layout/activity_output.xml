@@ -11,26 +11,25 @@
         android:id="@+id/outputTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="196dp"
+        android:layout_marginStart="190dp"
 
         android:layout_marginTop="212dp"
         android:textColor="#766052"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:textSize="25sp"
+        android:fontFamily="@font/aleo_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/timeTV"
-        android:layout_width="0dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="196dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="190dp"
         android:layout_marginTop="292dp"
-
         android:textColor="#766052"
-        android:textSize="20sp"
-        android:textStyle="italic"
+        android:textSize="25sp"
+        android:fontFamily="@font/aleo_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -43,8 +42,9 @@
         android:layout_marginTop="212dp"
         android:text="@string/matched"
         android:textColor="#766052"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
+        android:fontFamily="@font/aleo_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -56,10 +56,85 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="292dp"
         android:text="@string/timed"
+        android:fontFamily="@font/aleo_regular"
         android:textColor="#766052"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="372dp"
+        android:src="@drawable/ready_to_eat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        android:text="Back"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/eat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="@string/eat"
+        android:textColor="#4d392e"
+        android:textSize="40dp"
+        android:fontFamily="@font/playfair"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gifImageView" />
+
+    <TextView
+        android:id="@+id/congrats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="104dp"
+        android:fontFamily="@font/playfair"
+        android:text="CONGRATS"
+        android:textColor="#8b6f5b"
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/left_spark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toStartOf="@+id/congrats"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spark_left" />
+
+    <ImageView
+        android:id="@+id/right_spark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/congrats"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spark_right" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
