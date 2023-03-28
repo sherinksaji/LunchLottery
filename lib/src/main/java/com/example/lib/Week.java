@@ -1,5 +1,8 @@
 package com.example.lib;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Week {
     /**
 
@@ -26,18 +29,25 @@ public class Week {
 
      */
 
-    public String weekForViewResult (){
-        //notice there is no space between Week and 10
-        return "Week10";
+
+    public static String weekForViewResult (){
+        // returns the week for viewing the results (e.g. Week12)
+        GregorianCalendar calendar = new GregorianCalendar();
+        int this_week = calendar.get(Calendar.WEEK_OF_YEAR);
+        String s = String.valueOf(this_week);
+        return "Week" + s;
     }
 
-    public String weekForJoinLottery (){
-        //notice there is no space between Week and 11
-        return "Week11";
+    public static String weekForJoinLottery (){
+        // returns the week the user can enter the lottery (e.g. Week13)
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        int next_week = calendar.get(Calendar.WEEK_OF_YEAR);
+        String s = String.valueOf(next_week);
+        return "Week" + s;
     }
 
     /**
-     TODO 1 Implement these methods for minDate
      *needed Week Method: public int minDayForJoinLottery ()
      *needed Week Method: public int minMonthForJoinLottery ()
      *needed Week Method: public int minYearForJoinLottery ()
@@ -46,20 +56,40 @@ public class Week {
      all these methods will give me the min date to allow user to select on
      date picker
      */
-    public int minDayForJoinLottery (){
-        return 0;
-    }
-    public int minMonthForJoinLottery(){
-        //if month is April, return 4
-        return 0;
+
+    // return the day for Monday of the next week
+    public static int minDayForJoinLottery (){
+        // construct a default Gregorian Calendar
+        GregorianCalendar calendar = new GregorianCalendar();
+        // Add one week to this date
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        // set the day of the week to Monday
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        // return the date for Monday of this ( the next ) week
+        return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
-    public int minYearForJoinLottery(){
-        return 0;
+    // return the month of the Monday of the next week
+    public static int minMonthForJoinLottery(){
+        // construct a default Gregorian Calendar
+        GregorianCalendar calendar = new GregorianCalendar();
+        // add one week to this date
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        // set the day of the week to Monday
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        // return the month of this week's Monday
+        return calendar.get(Calendar.MONTH) + 1;
+    }
+
+    // return the year of the Monday of next week
+    public static int minYearForJoinLottery(){
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        return calendar.get(Calendar.YEAR);
     }
 
     /**
-     TODO 2 Implement these methods for maxDate
      *needed Week Method: public int maxDayForJoinLottery ()
      *needed Week Method: public int maxMonthForJoinLottery ()
      *needed Week Method: public int maxYearForJoinLottery ()
@@ -69,21 +99,55 @@ public class Week {
      date picker
      */
 
-    public int maxDayForJoinLottery (){
-        return 0;
-    }
-    public int maxMonthForJoinLottery(){
-        //if month is April, return 4
-        return 0;
+    public static int maxDayForJoinLottery (){
+        // construct a default Gregorian Calendar
+        GregorianCalendar calendar = new GregorianCalendar();
+        // Add one week to this date
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        // set the day of the week to Friday
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        // return the date for Friday of the next week
+        return calendar.get(Calendar.DAY_OF_MONTH);
+        // return 0;
     }
 
-    public int maxYearForJoinLottery(){
-        return 0;
+    public static int maxMonthForJoinLottery(){
+        // construct a default Gregorian Calendar
+        GregorianCalendar calendar = new GregorianCalendar();
+        // add one week to this date
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        // set the day of the week to Friday
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        // return the month of this week's Friday
+        return calendar.get(Calendar.MONTH) + 1;
     }
 
-    /**
-     TODO 3 Help test out end of year and beginning of year scenario in the date picker of the app
-     */
+    public static int maxYearForJoinLottery(){
+        // construct a new Gregorian Calendar
+        GregorianCalendar calendar = new GregorianCalendar();
+        // add one week to this date
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        // set the day of the week to Friday
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        // return the year of this week's Friday
+        return calendar.get(Calendar.YEAR);
+    }
+
+    //public static void main(String[] args) {
+      //  System.out.println("The Monday of the next week (should be 3): " + minDayForJoinLottery());
+        //System.out.println("The month of the Monday of next week ( should be 4): " + minMonthForJoinLottery());
+        //System.out.println("The year of the Monday of the next week (should be 2023): " + minYearForJoinLottery());
+
+        //System.out.println("The Friday of the next week (should be 7): " + maxDayForJoinLottery());
+        //System.out.println("The month of the Friday of next week ( should be 4): " + maxMonthForJoinLottery());
+        //System.out.println("The year of the Friday of the next week (should be 2023): " + maxYearForJoinLottery());
+
+        //System.out.println("You can view results for: " + weekForViewResult());
+        //System.out.println("You can enter the lottery for: " + weekForJoinLottery());
+    //}
+
+
 
 
 }
+
