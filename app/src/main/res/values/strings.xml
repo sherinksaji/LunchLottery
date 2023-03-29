@@ -33,6 +33,8 @@
     <string name="join_next_lottery">Join Next Lottery</string>
     <string name="let_s_eat_together">Let\'s eat together!</string>
     <string name="back">back</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
 
 
 </resources>
