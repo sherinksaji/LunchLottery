@@ -1,6 +1,5 @@
 package com.example.androidapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,15 +9,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lib.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener{
-
 
     private EditText editTextTelegramHandle,editTextPassword, confirmPassword;
     private ProgressBar progressBar;
@@ -39,13 +41,13 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
         editTextTelegramHandle=(EditText)findViewById(R.id.telegramHandle);
         editTextPassword=(EditText)findViewById(R.id.password);
+        confirmPassword=(EditText)findViewById(R.id.confirmPassword);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         TextView back = findViewById(R.id.back);
         back.setOnClickListener(this);
 
-
     }
-    @SuppressLint("NonConstantResourceId")
+
     @Override
     public void onClick(View v){
 
@@ -63,9 +65,8 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void registerUser(){
-
         String password=editTextPassword.getText().toString().trim();
-        String confirmpassword=confirmPassword.getText().toString().trim();
+        String confirm_password=confirmPassword.getText().toString().trim();
         String telegramHandle=editTextTelegramHandle.getText().toString().trim();
 
         if (telegramHandle.isEmpty()){
@@ -73,63 +74,65 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
             editTextTelegramHandle.requestFocus();
             return;
         }
-        if (telegramHandle.contains("@")){
+        else if (telegramHandle.contains("@")){
             editTextTelegramHandle.setError("Enter Telegram handle without @");
         }
 
-        String email=telegramHandle+"@example.com";
-
-        if (password.isEmpty()){
+        else if (password.isEmpty()){
             editTextPassword.setError("Password is required!");
             editTextPassword.requestFocus();
             return;
         }
 
-        if (!password.equals(confirmpassword)){
+        else if (password.length()<6){
+            editTextPassword.setError("Min Password length should be 6 characters!");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        else if (!password.equals(confirm_password)){
             confirmPassword.setError("Password given is different");
             confirmPassword.requestFocus();
             return;
         }
 
-        if (password.length()<6){
-            editTextPassword.setError("Min Password length should be 6 characters!");
-            editTextPassword.requestFocus();
-            return;
-        }
+        String email=telegramHandle+"@example.com";
+
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(task -> {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
 
 
-                    if (task.isSuccessful() ){
-                        //Fix for Method invocation 'getUid' may produce 'NullPointerException'
-                        String uid= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                        if (task.isSuccessful()) {
+                            //Fix for Method invocation 'getUid' may produce 'NullPointerException'
+                            String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-                        User user =new User (telegramHandle,email,uid);
+                            User user = new User(telegramHandle, email, uid);
 
-                        FirebaseDatabase.getInstance().getReference("Users")
-                                .child(uid)
-                                .setValue(user).addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()){
-                                        Toast.makeText(RegisterUserActivity.this,"User has been registered successfully", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.VISIBLE);
-                                        startActivity(new Intent(RegisterUserActivity.this,LoginActivity.class));
-                                    }else{
-                                        String exceptionMessage=(task1.getException().getMessage()!=null) ? task1.getException().getMessage():"Exception Not Found";
-                                        Toast.makeText(RegisterUserActivity.this,"Failed to register! "+exceptionMessage,Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                });
-                    }
-                    else{
-                        String exceptionMessage=(task.getException().getMessage()!=null) ? task.getException().getMessage():"Exception Not Found";
-                        Toast.makeText(RegisterUserActivity.this,"Failed to register! Try again!"+exceptionMessage,Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(uid)
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(RegisterUserActivity.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
+                                                progressBar.setVisibility(View.VISIBLE);
+                                                startActivity(new Intent(RegisterUserActivity.this, LoginActivity.class));
+                                            } else {
+                                                String exceptionMessage = (task.getException().getMessage() != null) ? task.getException().getMessage() : "Exception Not Found";
+                                                Toast.makeText(RegisterUserActivity.this, "Failed to register! " + exceptionMessage, Toast.LENGTH_LONG).show();
+                                                progressBar.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    });
+                        } else {
+                            String exceptionMessage = (task.getException().getMessage() != null) ? task.getException().getMessage() : "Exception Not Found";
+                            Toast.makeText(RegisterUserActivity.this, "Failed to register! Try again!" + exceptionMessage, Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
                     }
                 });
-
-
     }
-
-
 }
