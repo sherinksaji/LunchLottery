@@ -52,9 +52,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     TextView deleteEntryTV;
     GregorianCalendar selectedDateTime;
     String weekNode;
-<<<<<<< Updated upstream
     TextView back;
-=======
 
     Week.WeekTitle week_title_next;
 
@@ -63,7 +61,6 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     Week.MinDayForJoinLottery week_min;
 
 
->>>>>>> Stashed changes
     final int[] checkedItem= new int [1];
 
 
