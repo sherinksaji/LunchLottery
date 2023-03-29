@@ -2,6 +2,7 @@ package com.example.androidapp;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -28,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -103,6 +103,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v){
         switch(v.getId()){
