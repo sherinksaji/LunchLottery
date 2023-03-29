@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lib.Entry;
 import com.example.lib.Ticket;
+import com.example.lib.Week;
 import com.example.lib.create_pair;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-
 
 public class OutputActivity extends AppCompatActivity {
 
@@ -50,7 +50,8 @@ public class OutputActivity extends AppCompatActivity {
         /**
          *needed Week Method: public String weekForViewResult ()
          */
-        String weekNode= "Week10";
+        String weekNode= new Week.CurrentWeek().getWeekTitle();
+        //weekNode = "week10"; //manual display
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
         TV=(TextView) findViewById(R.id.outputTV);
         timeTV=(TextView) findViewById(R.id.timeTV);
@@ -131,7 +132,6 @@ public class OutputActivity extends AppCompatActivity {
 
     }
     //https://firebase.google.com/docs/database/web/read-and-write
-
 
 
 }
