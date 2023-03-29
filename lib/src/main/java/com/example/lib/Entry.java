@@ -8,15 +8,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class Entry {
-    /**
-     * Entry takes in inputs Telehandle and a Gregorian Calendar
-     * This object is used to collect user input
-     * This object will be written into firebase database
-     * This object will be read back into the app
-     * This object will be sorted according to a comparator
-     * Sort according to what? Telehandle?
-     *
-     */
+
+
+
 
     private String telegramHandle;
     private long bookingTimeStamp;// the time that the user booked for

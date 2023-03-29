@@ -86,7 +86,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         /**
          *needed Week Method: public String weekForJoinLottery ()
          */
-        weekNode="Week11";
+        weekNode="Week10";
 
         ref = FirebaseDatabase.getInstance().getReference();
 
