@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lib.Entry;
 import com.example.lib.Ticket;
+import com.example.lib.Week;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +52,18 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     TextView deleteEntryTV;
     GregorianCalendar selectedDateTime;
     String weekNode;
+<<<<<<< Updated upstream
     TextView back;
+=======
+
+    Week.WeekTitle week_title_next;
+
+    Week.MaxDayForJoinLottery week_max;
+
+    Week.MinDayForJoinLottery week_min;
+
+
+>>>>>>> Stashed changes
     final int[] checkedItem= new int [1];
 
 
@@ -83,10 +95,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        /**
-         *needed Week Method: public String weekForJoinLottery ()
-         */
-        weekNode="Week11";
+        // week the user can enter the lottery for
+        week_title_next = new Week.NextWeek();
+        weekNode = week_title_next.getWeekTitle();
 
         ref = FirebaseDatabase.getInstance().getReference();
 
@@ -215,9 +226,10 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
          *needed Week Method: public int minMonthForJoinLottery ()
          *needed Week Method: public int minYearForJoinLottery ()
          */
-        final int minDay = 3;
-        final int minMonth = 4;
-        final int minYear = 2023;
+        week_min = new Week.MinDateForJoinLottery();
+        final int minDay = week_min.getMinDay();
+        final int minMonth = week_min.getMinMonth();
+        final int minYear = week_min.getMinYear();
         gregCal.set(minYear, minMonth - 1, minDay);
         datePickerDialog.getDatePicker().setMinDate(
                 gregCal.getTimeInMillis());
@@ -229,9 +241,10 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
          *needed Week Method: public int maxMonthForJoinLottery ()
          *needed Week Method: public int maxYearForJoinLottery ()
          */
-        final int maxDay = 7;
-        final int maxMonth = 4;
-        final int maxYear = 2023;
+        week_max = new Week.MaxDateForJoinLottery();
+        final int maxDay = week_max.getMaxDay();
+        final int maxMonth = week_max.getMaxMonth();
+        final int maxYear = week_max.getMaxYear();
         gregCal.set(maxYear, maxMonth - 1, maxDay);
         datePickerDialog.getDatePicker().setMaxDate(
                 gregCal.getTimeInMillis());
