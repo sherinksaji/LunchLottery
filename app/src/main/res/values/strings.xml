@@ -29,6 +29,10 @@
     <string name="matched">Your Match</string>
     <string name="timed">Chosen Time</string>
     <string name="eat">BON APPETIT</string>
+    <string name="view_results">View Results</string>
+    <string name="join_next_lottery">Join Next Lottery</string>
+    <string name="let_s_eat_together">Let\'s eat together!</string>
+    <string name="back">back</string>
 
 
 </resources>
