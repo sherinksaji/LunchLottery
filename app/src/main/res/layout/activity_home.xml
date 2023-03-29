@@ -12,56 +12,54 @@
         android:textColor="#766052"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:text="@string/welcomeMsg"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="italic"
+        android:fontFamily="@font/aleo_regular"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bannerDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/banner2" />
 
     <TextView
         android:id="@+id/banner2"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/playfair"
         android:text="@string/appName"
         android:textAlignment="center"
-        android:textSize="60sp"
+        android:textSize="55sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/bannerDescription"
-        android:textColor="#766052"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/motto"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner2" />
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
 
     <Button
         android:id="@+id/signOut"
-        android:layout_width="287dp"
-        android:layout_height="85dp"
-
+        android:layout_width="320dp"
+        android:layout_height="70dp"
         android:backgroundTint="#766052"
         android:text="@string/logout"
         android:textColor="#ffffff"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -70,28 +68,30 @@
 
     <Button
         android:id="@+id/Input"
-        android:layout_width="298dp"
-        android:layout_height="85dp"
-        android:text="@string/input"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:text="@string/join_next_lottery"
+        android:background="@drawable/round_button"
         android:backgroundTint="#766052"
         android:textColor="#ffffff"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toTopOf="@+id/Output"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textName" />
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <Button
         android:id="@+id/Output"
-        android:layout_width="291dp"
-        android:layout_height="86dp"
-
-        android:text="@string/output"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:text="@string/view_results"
+        android:background="@drawable/round_button"
         android:backgroundTint="#766052"
         android:textColor="#ffffff"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/signOut"
         app:layout_constraintHorizontal_bias="0.525"
