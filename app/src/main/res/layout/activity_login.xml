@@ -11,11 +11,11 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-black"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/playfair"
         android:text="@string/appName"
         android:textAlignment="center"
-        android:textSize="60sp"
+        android:textSize="55sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,10 +25,11 @@
     <Button
         android:id="@+id/signIn"
         android:layout_width="336dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="80dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="#766052"
         android:text="@string/login"
+        android:background="@drawable/round_button"
         android:textColor="#ffffff"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -39,22 +40,21 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="360dp"
+        android:layout_width="340dp"
         android:layout_height="53dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:autofillHints="password"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textSize="24sp"
-        app:layout_constraintHorizontal_bias="0.366"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/telegramHandle" />
 
     <EditText
         android:id="@+id/telegramHandle"
-        android:layout_width="359dp"
+        android:layout_width="340dp"
         android:layout_height="53dp"
         android:layout_marginTop="40dp"
         android:ems="10"
@@ -70,10 +70,10 @@
         android:id="@+id/bannerDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/motto"
+        android:layout_marginTop="40dp"
+        android:text="@string/let_s_eat_together"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="25sp"
         android:textStyle="italic"
         app:layout_constraintHorizontal_bias="0.435"
 
@@ -81,17 +81,18 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/banner" />
 
-    <TextView
+    <Button
         android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:text="@string/register"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signIn" />
+        android:textColor="#766052"
+        android:textSize="16sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/signIn"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
