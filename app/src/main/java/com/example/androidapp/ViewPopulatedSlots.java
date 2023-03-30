@@ -2,21 +2,20 @@ package com.example.androidapp;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lib.CreateSlots;
 import com.example.lib.Entry;
+import com.example.lib.PopulatedSlot;
 import com.example.lib.Ticket;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,39 +23,38 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 public class ViewPopulatedSlots extends AppCompatActivity{
 
-   /** @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_populated_slots);
-    }*/
 
    DatabaseReference ref;
-    TextView TV;
+    TextView nobodyJoinedTV;
 
     ArrayList<Entry> entryArrayList;
-    String priorInput;
-    ArrayList<String> calStrArrayList;
-    ArrayList<String> populatedSlots;
+    ArrayList<PopulatedSlot> populatedSlots;
+    RecyclerView.Adapter<PopulatedSlotAdapter.SlotsHolder> populatedSlotAdapter;
+
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_populated_slots);
-        Intent intent=getIntent();
         entryArrayList=new ArrayList<>();
+        populatedSlots=new ArrayList<>();
+
 
         /**
          *needed Week Method: public String weekForViewResult ()
          */
         String weekNode= "Week10";
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
-        TV=(TextView) findViewById(R.id.textView3);
+        nobodyJoinedTV=(TextView) findViewById(R.id.nobodyJoinedTV);
         readWeek();
+
+        recyclerView=(RecyclerView) findViewById(R.id.recyclerView);
+        populatedSlotAdapter=new PopulatedSlotAdapter(this,populatedSlots);
+        recyclerView.setLayoutManager( new LinearLayoutManager(this));
+        recyclerView.setAdapter(populatedSlotAdapter);
     }
 
     private void readWeek(){
@@ -67,35 +65,26 @@ public class ViewPopulatedSlots extends AppCompatActivity{
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 entryArrayList.clear();
-                Map<String,Integer> calStrQty=new HashMap<String, Integer>();
+                populatedSlots.clear();
                 if (dataSnapshot.exists()){
-                    //make recycler view visible
+                    nobodyJoinedTV.setVisibility(View.GONE);
                     String readWeekStr="";
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         Ticket ticket = postSnapshot.getValue(Ticket.class);
                         Entry entry=new Entry(ticket);
-                        if (calStrQty.containsKey(entry.calStr())){
-                            Integer newQty=calStrQty.get(entry.calStr())+1;
-                            calStrQty.put(entry.calStr(),newQty);
-                        }
-                        else{
-                            calStrQty.put(entry.calStr(), 1);
-                        }
-                    }
-                    for (Map.Entry<String, Integer> set :
-                            calStrQty.entrySet()) {
-
-                        // Printing all elements of a Map
-                        readWeekStr+=(set.getKey() + " = "
-                                + set.getValue())+"\n";
+                        entryArrayList.add(entry);
 
                     }
-                    TV.setText(readWeekStr);
+                    CreateSlots createSlots=new CreateSlots(populatedSlots,entryArrayList);
+                    createSlots.Create();
 
+                    Log.i("populatedSlots",populatedSlots.toString());
+                    populatedSlotAdapter.notifyDataSetChanged();
+                    Log.i("Adapter", "notifyDataSetChanged() called");
                 }
                 else{
-                //make recycler view invisible
 
+                    nobodyJoinedTV.setVisibility(View.VISIBLE);
 
                 }
             }

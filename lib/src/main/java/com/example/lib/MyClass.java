@@ -1,9 +1,7 @@
 package com.example.lib;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class MyClass {
     public static void main(String[] args) {
