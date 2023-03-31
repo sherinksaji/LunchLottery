@@ -14,25 +14,27 @@ public class MyClass {
                 12,
                 0);
 
-        Entry entry = new Entry("sherinuhhahaha", gregCal);
+
+
+        LotteryEntry entry = new LotteryEntry("sherinuhhahaha", gregCal);
         System.out.println(entry.toString());
 
-        Entry entry1 = new Entry("marcia_sunflower", gregCal);
+        LotteryEntry entry1 = new LotteryEntry("marcia_sunflower", gregCal);
 
-        Entry entry2 = new Entry("Ravenex", gregCal);
-        Entry entry3 = new Entry("alexanderwikstrom", gregCal);
-        Entry entry4 = new Entry("jnssay", gregCal);
-        Entry entry5 = new Entry("rosapeltola", gregCal);
-        Entry entry6 = new Entry("Jalamieee", gregCal);
-        Entry entry7 = new Entry("turragdewan", gregCal);
-        Entry entry8 = new Entry("liewsoonhao", gregCal);
-        Entry entry9 = new Entry("after232", gregCal);
-        Entry entry10 = new Entry("Blackvines", gregCal);
-        Entry entry11 = new Entry("asapruki", gregCal);
-        Entry entry12 = new Entry("namoikonk", gregCal);
-        Entry entry13 = new Entry("gunnyjan", gregCal);
-        Entry entry14 = new Entry("Erick_t", gregCal);
-        ArrayList<Entry> entryArrayList = new ArrayList<>();
+        LotteryEntry entry2 = new LotteryEntry("Ravenex", gregCal);
+        LotteryEntry entry3 = new LotteryEntry("alexanderwikstrom", gregCal);
+        LotteryEntry entry4 = new LotteryEntry("jnssay", gregCal);
+        LotteryEntry entry5 = new LotteryEntry("rosapeltola", gregCal);
+        LotteryEntry entry6 = new LotteryEntry("Jalamieee", gregCal);
+        LotteryEntry entry7 = new LotteryEntry("turragdewan", gregCal);
+        LotteryEntry entry8 = new LotteryEntry("liewsoonhao", gregCal);
+        LotteryEntry entry9 = new LotteryEntry("after232", gregCal);
+        LotteryEntry entry10 = new LotteryEntry("Blackvines", gregCal);
+        LotteryEntry entry11 = new LotteryEntry("asapruki", gregCal);
+        LotteryEntry entry12 = new LotteryEntry("namoikonk", gregCal);
+        LotteryEntry entry13 = new LotteryEntry("gunnyjan", gregCal);
+        LotteryEntry entry14 = new LotteryEntry("Erick_t", gregCal);
+        ArrayList<LotteryEntry> entryArrayList = new ArrayList<>();
         entryArrayList.add(entry);
         entryArrayList.add(entry1);
         entryArrayList.add(entry2);
@@ -48,7 +50,7 @@ public class MyClass {
         entryArrayList.add(entry12);
         entryArrayList.add(entry13);
         entryArrayList.add(entry14);
-        for (Entry e : entryArrayList) {
+        for (LotteryEntry e : entryArrayList) {
             System.out.println(e.toString());
         }
 

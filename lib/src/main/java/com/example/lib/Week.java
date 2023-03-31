@@ -67,6 +67,24 @@ public class Week {
      date picker
      */
 
+    public interface day{
+        public int getDay();
+        public int getMonth();
+        public int getYear();
+    }
+
+    public static class Weekend{
+        public static boolean isWeekend() {
+            GregorianCalendar calendar = new GregorianCalendar();
+            if (calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SATURDAY) || calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SUNDAY)) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+
     // Interface for getting the min day for joining the lottery (Monday of next week)
     public interface MinDayForJoinLottery {
         public int getMinDay();

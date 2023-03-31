@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class create_pair {
     ArrayList<Pair> Store_pair = new ArrayList<Pair>();
-    public void Create(ArrayList<Entry> lst){ //create pairs from entry array list
+    public void Create(ArrayList<LotteryEntry> lst){ //create pairs from entry array list
 
         Collections.shuffle(lst, new Random(100));
         if (lst.size()==1){

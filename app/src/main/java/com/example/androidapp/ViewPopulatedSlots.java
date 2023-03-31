@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lib.CreateSlots;
-import com.example.lib.Entry;
+import com.example.lib.LotteryEntry;
 import com.example.lib.PopulatedSlot;
 import com.example.lib.Ticket;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +30,7 @@ public class ViewPopulatedSlots extends AppCompatActivity{
    DatabaseReference ref;
     TextView nobodyJoinedTV;
 
-    ArrayList<Entry> entryArrayList;
+    ArrayList<LotteryEntry> entryArrayList;
     ArrayList<PopulatedSlot> populatedSlots;
     RecyclerView.Adapter<PopulatedSlotAdapter.SlotsHolder> populatedSlotAdapter;
 
@@ -71,7 +71,7 @@ public class ViewPopulatedSlots extends AppCompatActivity{
                     String readWeekStr="";
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         Ticket ticket = postSnapshot.getValue(Ticket.class);
-                        Entry entry=new Entry(ticket);
+                        LotteryEntry entry=new LotteryEntry(ticket);
                         entryArrayList.add(entry);
 
                     }

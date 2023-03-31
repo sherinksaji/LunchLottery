@@ -10,13 +10,13 @@ public class Demo {
                 12,
                 0);
         System.out.println(gregCal.MONTH);
-        Entry e = new Entry("sherinuhhahaha",gregCal);
+        LotteryEntry e = new LotteryEntry("sherinuhhahaha",gregCal);
 
          System.out.println(e.calStr());
 //       System.out.println(e.displayResultToMatch());
 
 
-        Entry blankEntry = new Entry(gregCal);
+        LotteryEntry blankEntry = new LotteryEntry(gregCal);
 //       System.out.println(blankEntry.toString());
 //        System.out.println(blankEntry.displayResultToMatch());
 
@@ -26,7 +26,7 @@ public class Demo {
 
 
 
-        Entry e1 =  new Entry("daisy",gregCal);
+        LotteryEntry e1 =  new LotteryEntry("daisy",gregCal);
         //Pair pairWMatch = new Pair (e,e1);
         //Boolean userInPair=pairWMatch.inPair("sherinuhhahaha");
 //        System.out.println(userInPair);

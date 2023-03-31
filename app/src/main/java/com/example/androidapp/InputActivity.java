@@ -18,7 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lib.Entry;
+import com.example.lib.LotteryEntry;
 import com.example.lib.Ticket;
 import com.example.lib.Week;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -146,7 +146,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
                 if (dataSnapshot.exists()){
                     Ticket ticket= dataSnapshot.getValue(Ticket.class);
-                    Entry entry=new Entry(ticket);
+                    LotteryEntry entry=new LotteryEntry(ticket);
                     Log.i(TAG, "entryValue: "+entry.toString());
                     Log.i(TAG, "entrytime: "+selectedDateTime);
                     priorInputTV.setText("Current entry: "+entry.calStr());
@@ -345,7 +345,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     {
         Log.i("Hour", String.valueOf(selectedDateTime.get(GregorianCalendar.HOUR_OF_DAY)));
-        Entry entry=new Entry(telegramHandle,selectedDateTime);
+        LotteryEntry entry=new LotteryEntry(telegramHandle,selectedDateTime);
 
 
         Log.i("calStr",entry.calStr());

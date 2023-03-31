@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lib.Entry;
+import com.example.lib.LotteryEntry;
 import com.example.lib.Ticket;
 import com.example.lib.User;
 import com.example.lib.Week;
@@ -67,6 +67,7 @@ public class HomeActivity extends AppCompatActivity{
         TV.setText("Welcome, "+telegramHandle);
 
         PopulatedSlotsButton=(Button)findViewById(R.id.populatedSlots);
+
         PopulatedSlotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +116,15 @@ public class HomeActivity extends AppCompatActivity{
             }
         });
 
+        if (Week.Weekend.isWeekend()){
+            PopulatedSlotsButton.setVisibility(View.VISIBLE);
+            OutputButton.setVisibility(View.GONE);
+        }
+        else{
+            PopulatedSlotsButton.setVisibility(View.GONE);
+            OutputButton.setVisibility(View.VISIBLE);
+        }
+
     }
     private void  readTelegramHandle(){
 
@@ -154,7 +164,7 @@ public class HomeActivity extends AppCompatActivity{
                     DataSnapshot dataSnapshot=task.getResult();
                     if (dataSnapshot.exists()){
                         Ticket ticket= dataSnapshot.getValue(Ticket.class);
-                        Entry entry=new Entry(ticket);
+                        LotteryEntry entry=new LotteryEntry(ticket);
                         Log.i(TAG, "entryValue: "+entry.toString());
                         priorInput=entry.calStr();
 

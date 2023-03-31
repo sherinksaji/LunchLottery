@@ -11,9 +11,9 @@ public class CreateSlots {
 
     private ArrayList<PopulatedSlot> populatedSlotArrayList;
 
-    private ArrayList<Entry> entryArrayList;
+    private ArrayList<LotteryEntry> entryArrayList;
 
-    public CreateSlots(ArrayList<PopulatedSlot> populatedSlotArrayList, ArrayList<Entry> entryArrayList) {
+    public CreateSlots(ArrayList<PopulatedSlot> populatedSlotArrayList, ArrayList<LotteryEntry> entryArrayList) {
         this.populatedSlotArrayList = populatedSlotArrayList;
         this.entryArrayList = entryArrayList;
     }
@@ -23,7 +23,7 @@ public class CreateSlots {
 
 
             Map<String, Integer> calStrQty = new HashMap<String, Integer>();
-            for (Entry e : entryArrayList) {
+            for (LotteryEntry e : entryArrayList) {
                 if (calStrQty.containsKey(e.calStr())) {
                     Integer newQty = calStrQty.get(e.calStr()) + 1;
                     calStrQty.put(e.calStr(), newQty);

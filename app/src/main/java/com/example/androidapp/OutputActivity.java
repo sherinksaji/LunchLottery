@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lib.Entry;
+import com.example.lib.LotteryEntry;
 import com.example.lib.Ticket;
 import com.example.lib.Week;
 import com.example.lib.create_pair;
@@ -38,7 +38,7 @@ public class OutputActivity extends AppCompatActivity {
     pl.droidsonroids.gif.GifImageView fail;
     String currentUser;
     String priorInput;
-    ArrayList<Entry> entryArrayList;
+    ArrayList<LotteryEntry> entryArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class OutputActivity extends AppCompatActivity {
     }
 
     private void  readWeek(){
-        entryArrayList = new ArrayList<Entry>();
+        entryArrayList = new ArrayList<LotteryEntry>();
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -88,14 +88,14 @@ public class OutputActivity extends AppCompatActivity {
                         String readWeekStr="";
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                             Ticket ticket = postSnapshot.getValue(Ticket.class);
-                            Entry entry=new Entry(ticket);
+                            LotteryEntry entry=new LotteryEntry(ticket);
                             //Log.i("time",entry.calStr());
                             if (entry.calStr().equals(priorInput)){
                                 entryArrayList.add(entry);
                             }
 
                         }
-                        for (Entry entry:entryArrayList){
+                        for (LotteryEntry entry:entryArrayList){
                             readWeekStr+=entry.toString();
                             readWeekStr+=", ";
                         }
