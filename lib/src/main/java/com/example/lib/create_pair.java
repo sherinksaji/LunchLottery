@@ -8,7 +8,10 @@ public class create_pair {
     ArrayList<Pair> Store_pair = new ArrayList<Pair>();
     public void Create(ArrayList<LotteryEntry> lst){ //create pairs from entry array list
 
-        Collections.shuffle(lst, new Random(100));
+        if (lst.size()>1) {
+            Collections.sort(lst, new EntryComparator());
+            Collections.shuffle(lst, new Random(100)); // to have a randomise the pairs
+        }
         if (lst.size()==1){
             Store_pair.add(new Pair((lst.get(0).getTelegramHandle()),"No one signed up"));
         }
