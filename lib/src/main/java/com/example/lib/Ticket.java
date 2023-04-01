@@ -2,7 +2,7 @@ package com.example.lib;
 
 import java.util.GregorianCalendar;
 
-public class Ticket {
+public class Ticket implements Identifiable{
     String telegramHandle;
     long bookingTimeStamp;
     String calStr;
@@ -35,6 +35,11 @@ public class Ticket {
         this.telegramHandle = telegramHandle;
         this.bookingTimeStamp = bookingTimeStamp;
         this.calStr = calStr;
+    }
+
+    @Override
+    public String identify() {
+        return this.getTelegramHandle();
     }
 
     public Ticket(){

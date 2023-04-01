@@ -12,7 +12,7 @@ interface Ticketable {
     Ticket fbTicket();
 }
 
-public class LotteryEntry implements Ticketable{
+public class LotteryEntry implements Identifiable,Ticketable{
 
     private String telegramHandle;
     private long bookingTimeStamp;// the time that the user booked for
@@ -64,6 +64,10 @@ public class LotteryEntry implements Ticketable{
 
     }
 
+    @Override
+    public String identify() {
+        return this.getTelegramHandle();
+    }
 
     @Override
     public Ticket fbTicket(){

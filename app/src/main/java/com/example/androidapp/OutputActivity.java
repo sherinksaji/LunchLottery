@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lib.Identifiable;
 import com.example.lib.LotteryEntry;
 import com.example.lib.Ticket;
 import com.example.lib.Week;
@@ -38,10 +39,11 @@ public class OutputActivity extends AppCompatActivity {
     pl.droidsonroids.gif.GifImageView fail;
     String currentUser;
     String priorInput;
-    ArrayList<LotteryEntry> entryArrayList;
+    ArrayList<Identifiable> entriesWithSameCalStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_output);
         Intent intent=getIntent();
@@ -51,7 +53,7 @@ public class OutputActivity extends AppCompatActivity {
          *needed Week Method: public String weekForViewResult ()
          */
         String weekNode= new Week.CurrentWeek().getWeekTitle();
-        //weekNode = "week10"; //manual display
+        //String weekNode = "Week10"; //manual display
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
         TV=(TextView) findViewById(R.id.outputTV);
         timeTV=(TextView) findViewById(R.id.timeTV);
@@ -72,7 +74,7 @@ public class OutputActivity extends AppCompatActivity {
     }
 
     private void  readWeek(){
-        entryArrayList = new ArrayList<LotteryEntry>();
+        entriesWithSameCalStr = new ArrayList<Identifiable>();
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -85,22 +87,20 @@ public class OutputActivity extends AppCompatActivity {
                 else {
                     DataSnapshot dataSnapshot=task.getResult();
                     if (dataSnapshot.exists()){
-                        String readWeekStr="";
+
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                             Ticket ticket = postSnapshot.getValue(Ticket.class);
                             LotteryEntry entry=new LotteryEntry(ticket);
                             //Log.i("time",entry.calStr());
                             if (entry.calStr().equals(priorInput)){
-                                entryArrayList.add(entry);
+                                entriesWithSameCalStr.add(entry);
                             }
 
                         }
-                        for (LotteryEntry entry:entryArrayList){
-                            readWeekStr+=entry.toString();
-                            readWeekStr+=", ";
-                        }
+
                         create_pair cp = new create_pair();
-                        cp.Create(entryArrayList);
+                        cp.Create(entriesWithSameCalStr);
+                        Log.i("identifiable","works");
 
                         /**
                          * TODO: Call your processing methods here

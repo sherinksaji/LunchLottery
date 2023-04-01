@@ -34,7 +34,7 @@ public class MyClass {
         LotteryEntry entry12 = new LotteryEntry("namoikonk", gregCal);
         LotteryEntry entry13 = new LotteryEntry("gunnyjan", gregCal);
         LotteryEntry entry14 = new LotteryEntry("Erick_t", gregCal);
-        ArrayList<LotteryEntry> entryArrayList = new ArrayList<>();
+        ArrayList<Identifiable> entryArrayList = new ArrayList<>();
         entryArrayList.add(entry);
         entryArrayList.add(entry1);
         entryArrayList.add(entry2);
@@ -50,8 +50,8 @@ public class MyClass {
         entryArrayList.add(entry12);
         entryArrayList.add(entry13);
         entryArrayList.add(entry14);
-        for (LotteryEntry e : entryArrayList) {
-            System.out.println(e.toString());
+        for (Identifiable e : entryArrayList) {
+            System.out.println(e.identify());
         }
 
         create_pair cp = new create_pair();
