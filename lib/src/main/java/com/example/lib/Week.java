@@ -43,6 +43,7 @@ public class Week {
             GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             int this_week = calendar.get(Calendar.WEEK_OF_YEAR);
             String s = String.valueOf(this_week);
+
             return "Week" + s;
         }
     }
@@ -75,7 +76,7 @@ public class Week {
         public int getYear();
     }
 
-    public static class Weekend{
+    public static class detectDay{
         public static boolean isWeekend() {
             GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             if (calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SATURDAY) || calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SUNDAY)) {
@@ -85,6 +86,17 @@ public class Week {
                 return false;
             }
         }
+
+        public static boolean isSunday(){
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
+            if (calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SUNDAY)) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
     }
 
     public static class calStrCreator{

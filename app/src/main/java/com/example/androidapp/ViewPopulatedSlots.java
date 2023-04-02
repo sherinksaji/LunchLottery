@@ -37,6 +37,7 @@ public class ViewPopulatedSlots extends AppCompatActivity{
     ArrayList<Slottable> allTicketsUnderWeekX;
     ArrayList<Countable> populatedSlots;
     RecyclerView.Adapter<PopulatedSlotAdapter.SlotsHolder> populatedSlotAdapter;
+    String weekNode;
 
     RecyclerView recyclerView;
     @Override
@@ -50,7 +51,7 @@ public class ViewPopulatedSlots extends AppCompatActivity{
         /**
          *needed Week Method: public String weekForViewResult ()
          */
-        String weekNode=new Week.NextWeek().getWeekTitle();
+        weekNode=new Week.NextWeek().getWeekTitle();
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
         nobodyJoinedTV=(TextView) findViewById(R.id.nobodyJoinedTV);
         readWeek();
@@ -78,6 +79,7 @@ public class ViewPopulatedSlots extends AppCompatActivity{
                         allTicketsUnderWeekX.add(ticket);
 
                     }
+
                     CreateSlots createSlots=new CreateSlots(populatedSlots, allTicketsUnderWeekX);
                     createSlots.Create();
 

@@ -1,5 +1,6 @@
 package com.example.lib;
 
-public interface Identifiable {
+public interface Identifiable{
+
     public abstract String identity();
 }

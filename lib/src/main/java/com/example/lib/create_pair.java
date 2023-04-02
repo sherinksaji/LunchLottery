@@ -7,7 +7,7 @@ import java.util.Random;
 public class create_pair {
     ArrayList<Pair> Store_pair = new ArrayList<Pair>();
     public void Create(ArrayList<Identifiable> lst){ //create pairs from entry array list
-
+        Collections.sort(lst,new IdentifiableComparator());
         if (lst.size()>1) {
             Collections.shuffle(lst, new Random(100)); // to have a randomise the pairs
         }

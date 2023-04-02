@@ -73,7 +73,6 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         telegramHandle=intent.getStringExtra("telegramHandle");
 
 
-
         datePickerBtn = (Button) findViewById(R.id.dateButton);
         datePickerBtn.setOnClickListener(this);
 
@@ -276,24 +275,28 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
                     selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,12);
                     selectedDateTime.set(GregorianCalendar.MINUTE,0);
+                    selectedDateTime.set(GregorianCalendar.SECOND,0);
 
                     break;
                 case 1:
 
                     selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,12);
                     selectedDateTime.set(GregorianCalendar.MINUTE,30);
+                    selectedDateTime.set(GregorianCalendar.SECOND,0);
 
                     break;
                 case 2:
 
                     selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,13);
                     selectedDateTime.set(Calendar.MINUTE,0);
+                    selectedDateTime.set(GregorianCalendar.SECOND,0);
 
                     break;
                 case 3:
 
                     selectedDateTime.set(GregorianCalendar.HOUR_OF_DAY,13);
                     selectedDateTime.set(GregorianCalendar.MINUTE,30);
+                    selectedDateTime.set(GregorianCalendar.SECOND,0);
 
                     break;
             }

@@ -1,6 +1,7 @@
 package com.example.lib;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ public class CreateSlots {
             for (Map.Entry<String, Integer> set : timeSlotQty.entrySet()) {
                 countables.add(new PopulatedSlot(set.getKey(), set.getValue()));
             }
+           Collections.sort(countables,new CountableComparator());
         }
     }
 
