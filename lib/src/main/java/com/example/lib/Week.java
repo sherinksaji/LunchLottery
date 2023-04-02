@@ -1,7 +1,9 @@
 package com.example.lib;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class Week {
     /**
@@ -38,7 +40,7 @@ public class Week {
     public static class CurrentWeek implements WeekTitle {
         @Override
         public String getWeekTitle() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             int this_week = calendar.get(Calendar.WEEK_OF_YEAR);
             String s = String.valueOf(this_week);
             return "Week" + s;
@@ -48,7 +50,7 @@ public class Week {
     public static class NextWeek implements WeekTitle {
         @Override
         public String getWeekTitle() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             int next_week = calendar.get(Calendar.WEEK_OF_YEAR);
             String s = String.valueOf(next_week);
@@ -75,7 +77,7 @@ public class Week {
 
     public static class Weekend{
         public static boolean isWeekend() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             if (calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SATURDAY) || calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SUNDAY)) {
                 return true;
             }
@@ -84,6 +86,15 @@ public class Week {
             }
         }
     }
+
+    public static class calStrCreator{
+        public static String getCalStr(GregorianCalendar calendar){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+            return sdf.format(calendar.getTime());
+
+        }
+    }
+    //from chatGPT
 
     // Interface for getting the min day for joining the lottery (Monday of next week)
     public interface MinDayForJoinLottery {
@@ -96,7 +107,7 @@ public class Week {
     public static class MinDateForJoinLottery implements MinDayForJoinLottery {
         @Override
         public int getMinDay() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
             return calendar.get(Calendar.DAY_OF_MONTH);
@@ -104,7 +115,7 @@ public class Week {
 
         @Override
         public int getMinMonth() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
             return calendar.get(Calendar.MONTH) + 1;
@@ -112,7 +123,7 @@ public class Week {
 
         @Override
         public int getMinYear() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
             return calendar.get(Calendar.YEAR);
@@ -141,7 +152,7 @@ public class Week {
     public static class MaxDateForJoinLottery implements MaxDayForJoinLottery {
         @Override
         public int getMaxDay() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
             return calendar.get(Calendar.DAY_OF_MONTH);
@@ -149,7 +160,7 @@ public class Week {
 
         @Override
         public int getMaxMonth() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
             return calendar.get(Calendar.MONTH) + 1;
@@ -157,7 +168,7 @@ public class Week {
 
         @Override
         public int getMaxYear() {
-            GregorianCalendar calendar = new GregorianCalendar();
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
             return calendar.get(Calendar.YEAR);

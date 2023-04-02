@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lib.LotteryEntry;
+import com.example.lib.LotteryTicket;
 import com.example.lib.Ticket;
 import com.example.lib.User;
 import com.example.lib.Week;
@@ -163,10 +164,8 @@ public class HomeActivity extends AppCompatActivity{
                 else {
                     DataSnapshot dataSnapshot=task.getResult();
                     if (dataSnapshot.exists()){
-                        Ticket ticket= dataSnapshot.getValue(Ticket.class);
-                        LotteryEntry entry=new LotteryEntry(ticket);
-                        Log.i(TAG, "entryValue: "+entry.toString());
-                        priorInput=entry.calStr();
+                        LotteryTicket ticket= dataSnapshot.getValue(LotteryTicket.class);
+                        priorInput=ticket.getCalStr();
 
                     }
                     else{

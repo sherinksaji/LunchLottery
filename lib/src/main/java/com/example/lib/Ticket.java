@@ -38,7 +38,7 @@ public class Ticket implements Identifiable{
     }
 
     @Override
-    public String identify() {
+    public String identity() {
         return this.getTelegramHandle();
     }
 

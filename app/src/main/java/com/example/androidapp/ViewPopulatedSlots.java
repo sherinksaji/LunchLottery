@@ -12,10 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lib.Countable;
 import com.example.lib.CreateSlots;
 import com.example.lib.LotteryEntry;
+import com.example.lib.LotteryTicket;
 import com.example.lib.PopulatedSlot;
+import com.example.lib.Slottable;
 import com.example.lib.Ticket;
+import com.example.lib.Week;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,8 +34,8 @@ public class ViewPopulatedSlots extends AppCompatActivity{
    DatabaseReference ref;
     TextView nobodyJoinedTV;
 
-    ArrayList<LotteryEntry> entryArrayList;
-    ArrayList<PopulatedSlot> populatedSlots;
+    ArrayList<Slottable> allTicketsUnderWeekX;
+    ArrayList<Countable> populatedSlots;
     RecyclerView.Adapter<PopulatedSlotAdapter.SlotsHolder> populatedSlotAdapter;
 
     RecyclerView recyclerView;
@@ -39,14 +43,14 @@ public class ViewPopulatedSlots extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_populated_slots);
-        entryArrayList=new ArrayList<>();
+        allTicketsUnderWeekX =new ArrayList<>();
         populatedSlots=new ArrayList<>();
 
 
         /**
          *needed Week Method: public String weekForViewResult ()
          */
-        String weekNode= "Week10";
+        String weekNode=new Week.NextWeek().getWeekTitle();
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
         nobodyJoinedTV=(TextView) findViewById(R.id.nobodyJoinedTV);
         readWeek();
@@ -64,18 +68,17 @@ public class ViewPopulatedSlots extends AppCompatActivity{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                entryArrayList.clear();
+                allTicketsUnderWeekX.clear();
                 populatedSlots.clear();
                 if (dataSnapshot.exists()){
                     nobodyJoinedTV.setVisibility(View.GONE);
                     String readWeekStr="";
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                        Ticket ticket = postSnapshot.getValue(Ticket.class);
-                        LotteryEntry entry=new LotteryEntry(ticket);
-                        entryArrayList.add(entry);
+                        LotteryTicket ticket = postSnapshot.getValue(LotteryTicket.class);
+                        allTicketsUnderWeekX.add(ticket);
 
                     }
-                    CreateSlots createSlots=new CreateSlots(populatedSlots,entryArrayList);
+                    CreateSlots createSlots=new CreateSlots(populatedSlots, allTicketsUnderWeekX);
                     createSlots.Create();
 
                     Log.i("populatedSlots",populatedSlots.toString());

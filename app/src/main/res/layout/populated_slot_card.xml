@@ -7,20 +7,20 @@
 
 
     <TextView
-        android:id="@+id/timingTV"
+        android:id="@+id/timeSlotTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="15dp"
         android:textSize="25dp"
-        android:text="@string/timing" />
+        android:text="@string/timeSlot" />
 
     <TextView
         android:id="@+id/countTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/timingTV"
+        android:layout_below="@id/timeSlotTV"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="15dp"

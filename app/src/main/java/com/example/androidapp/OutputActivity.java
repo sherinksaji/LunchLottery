@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lib.Identifiable;
 import com.example.lib.LotteryEntry;
+import com.example.lib.LotteryTicket;
 import com.example.lib.Ticket;
 import com.example.lib.Week;
 import com.example.lib.create_pair;
@@ -39,7 +40,8 @@ public class OutputActivity extends AppCompatActivity {
     pl.droidsonroids.gif.GifImageView fail;
     String currentUser;
     String priorInput;
-    ArrayList<Identifiable> entriesWithSameCalStr;
+    ArrayList<Identifiable> ticketsWithSameCalStr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +76,13 @@ public class OutputActivity extends AppCompatActivity {
     }
 
     private void  readWeek(){
-        entriesWithSameCalStr = new ArrayList<Identifiable>();
+        ticketsWithSameCalStr = new ArrayList<Identifiable>();
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Cannot read user telegram handle", task.getException());
-                    Toast.makeText(OutputActivity.this,"Cannot read your result, log out and try again",Toast.LENGTH_LONG);
+                    Toast.makeText(OutputActivity.this,"Cannot read your result, log out and try again",Toast.LENGTH_LONG).show();
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(OutputActivity.this, LoginActivity.class));
                 }
@@ -89,22 +91,21 @@ public class OutputActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()){
 
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                            Ticket ticket = postSnapshot.getValue(Ticket.class);
-                            LotteryEntry entry=new LotteryEntry(ticket);
+                            LotteryTicket ticket = postSnapshot.getValue(LotteryTicket.class);
                             //Log.i("time",entry.calStr());
-                            if (entry.calStr().equals(priorInput)){
-                                entriesWithSameCalStr.add(entry);
+                            if (ticket!=null&&ticket.getCalStr().equals(priorInput)){
+                                ticketsWithSameCalStr.add(ticket);
                             }
 
                         }
 
                         create_pair cp = new create_pair();
-                        cp.Create(entriesWithSameCalStr);
+                        cp.Create(ticketsWithSameCalStr);
                         Log.i("identifiable","works");
 
                         /**
                          * TODO: Call your processing methods here
-                         * (Entry ArrayList exists as populated here)
+                         * (ticketsWithSameCalStr exists as populated here)
                          * */
                         //TV.setText("none");
                         TV.setText(cp.find_pair(cp.getStore_pair(),currentUser));
@@ -123,7 +124,7 @@ public class OutputActivity extends AppCompatActivity {
                     else{
                         //dont know why it gets blank
                         Log.i("else", "Still in else block.");//didnt work
-                        TV.setText("Some technical error, try again");
+                        TV.setText("Some technical error,\n try again");
                     }
                 }
 

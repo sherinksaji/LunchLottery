@@ -1,6 +1,14 @@
 package com.example.lib;
 
-public class PopulatedSlot {
+public class PopulatedSlot implements Countable{
+    private String timing;
+    private int numberOfPeople;
+
+    public PopulatedSlot(String timing, int numberOfPeople) {
+        this.timing = timing;
+        this.numberOfPeople = numberOfPeople;
+    }
+
     public String getTiming() {
         return timing;
     }
@@ -9,23 +17,21 @@ public class PopulatedSlot {
         this.timing = timing;
     }
 
-    public int getCount() {
-        return count;
+    public int getNumberOfPeople() {
+        return numberOfPeople;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 
-    String timing;
-    int count;
-
-    public PopulatedSlot(String timing, int count) {
-        this.timing = timing;
-        this.count = count;
+    @Override
+    public int count() {
+        return this.getNumberOfPeople();
     }
 
-    public PopulatedSlot(){
-
+    @Override
+    public String timeSlot() {
+        return this.getTiming();
     }
 }

@@ -36,7 +36,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="populated_slots">Populated Slots</string>
-    <string name="timing">Timing</string>
+    <string name="timeSlot">TimeSlot</string>
     <string name="count">Count</string>
     <string name="nobody_joined">Nobody Joined Yet</string>
 

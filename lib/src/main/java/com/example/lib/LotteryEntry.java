@@ -65,7 +65,7 @@ public class LotteryEntry implements Identifiable,Ticketable{
     }
 
     @Override
-    public String identify() {
+    public String identity() {
         return this.getTelegramHandle();
     }
 

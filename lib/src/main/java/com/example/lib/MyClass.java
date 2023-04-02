@@ -13,7 +13,10 @@ public class MyClass {
                 4,
                 12,
                 0);
-
+        LotteryTicket t= new LotteryTicket("sherin",Week.calStrCreator.getCalStr(gregCal));
+        System.out.println(t.getCalStr());
+        System.out.println(t.getTelegramHandle());
+        System.out.println(t.identity());
 
 
         LotteryEntry entry = new LotteryEntry("sherinuhhahaha", gregCal);
@@ -51,7 +54,7 @@ public class MyClass {
         entryArrayList.add(entry13);
         entryArrayList.add(entry14);
         for (Identifiable e : entryArrayList) {
-            System.out.println(e.identify());
+            System.out.println(e.identity());
         }
 
         create_pair cp = new create_pair();

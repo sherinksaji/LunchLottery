@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lib.LotteryEntry;
+import com.example.lib.LotteryTicket;
 import com.example.lib.Ticket;
 import com.example.lib.Week;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -100,7 +101,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         ref = FirebaseDatabase.getInstance().getReference();
 
-        selectedDateTime=new GregorianCalendar(TimeZone.getDefault(), Locale.getDefault());
+        selectedDateTime=new GregorianCalendar(Locale.getDefault());
 
         //userInfoRef =ref.child(weekNode).child(telegramHandle);
 
@@ -145,11 +146,8 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 // whenever data at this location is updated.
 
                 if (dataSnapshot.exists()){
-                    Ticket ticket= dataSnapshot.getValue(Ticket.class);
-                    LotteryEntry entry=new LotteryEntry(ticket);
-                    Log.i(TAG, "entryValue: "+entry.toString());
-                    Log.i(TAG, "entrytime: "+selectedDateTime);
-                    priorInputTV.setText("Current entry: "+entry.calStr());
+                    LotteryTicket ticket= dataSnapshot.getValue(LotteryTicket.class);
+                    priorInputTV.setText("Current entry: "+ticket.getCalStr());
                     joinButton.setText("Edit entry");
                     deleteEntryTV.setVisibility(View.VISIBLE);
 
@@ -174,7 +172,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         // on below line we are getting
         // the instance of our calendar.
-        GregorianCalendar gregCal = new GregorianCalendar();
+        GregorianCalendar gregCal = new GregorianCalendar(Locale.getDefault());
 
         // on below line we are getting
         // our day, month and year.
@@ -344,13 +342,15 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     public void addDataUnderWeek()
 
     {
-        Log.i("Hour", String.valueOf(selectedDateTime.get(GregorianCalendar.HOUR_OF_DAY)));
-        LotteryEntry entry=new LotteryEntry(telegramHandle,selectedDateTime);
+        Log.i("selectedDateTime", String.valueOf(selectedDateTime.getTime().toString()));
+        /**LotteryEntry entry=new LotteryEntry(telegramHandle,selectedDateTime);
 
 
         Log.i("calStr",entry.calStr());
         Ticket ticket=entry.fbTicket();
-        Log.i("Before Db", String.valueOf(ticket.getBookingTimeStamp()));
+        Log.i("Before Db", String.valueOf(ticket.getBookingTimeStamp()));*/
+
+        LotteryTicket ticket= new LotteryTicket(telegramHandle,Week.calStrCreator.getCalStr(selectedDateTime));
 
         ref.child(weekNode).child(telegramHandle).setValue(ticket).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
