@@ -1,7 +1,5 @@
 package com.example.androidapp;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lib.LotteryEntry;
 import com.example.lib.LotteryTicket;
-import com.example.lib.Ticket;
 import com.example.lib.User;
 import com.example.lib.Week;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,7 +21,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class HomeActivity extends AppCompatActivity{
     DatabaseReference userRef;
     DatabaseReference weekRef;
@@ -69,6 +70,19 @@ public class HomeActivity extends AppCompatActivity{
 
         PopulatedSlotsButton=(Button)findViewById(R.id.populatedSlots);
 
+        Timer timer = new Timer();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 24);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date time = calendar.getTime();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                startActivity(new Intent(HomeActivity.this,HomeActivity.class));
+            }
+        }, time);
+
+
         PopulatedSlotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +98,7 @@ public class HomeActivity extends AppCompatActivity{
             public void onClick(View v){
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
 
             }
         });
