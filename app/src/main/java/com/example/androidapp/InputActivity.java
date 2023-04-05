@@ -18,9 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lib.LotteryEntry;
 import com.example.lib.LotteryTicket;
-import com.example.lib.Ticket;
 import com.example.lib.Week;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,20 +30,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class InputActivity extends AppCompatActivity implements View.OnClickListener{
 
-
     Button datePickerBtn,timePickerBtn,joinButton;
-
-
-
     DatabaseReference ref;
-
 
     String myUID;
     String telegramHandle;
@@ -63,7 +58,6 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
 
     final int[] checkedItem= new int [1];
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +97,17 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         selectedDateTime=new GregorianCalendar(Locale.getDefault());
 
         //userInfoRef =ref.child(weekNode).child(telegramHandle);
+        Timer timer = new Timer();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 24);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date time = calendar.getTime();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                startActivity(new Intent(InputActivity.this,HomeActivity.class));
+            }
+        }, time);
 
 
         readPriorInput();
@@ -144,14 +149,13 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
-                if (dataSnapshot.exists()){
-                    LotteryTicket ticket= dataSnapshot.getValue(LotteryTicket.class);
-                    priorInputTV.setText("Current entry: "+ticket.getCalStr());
+                if (dataSnapshot.exists()) {
+                    LotteryTicket ticket = dataSnapshot.getValue(LotteryTicket.class);
+                    priorInputTV.setText("Current entry: " + ticket.getCalStr());
                     joinButton.setText("Edit entry");
                     deleteEntryTV.setVisibility(View.VISIBLE);
 
-                }
-                else{
+                } else {
                     priorInputTV.setText("You have not entered the Lottery.");
                     joinButton.setText("Join Lottery");
                     timePickerBtn.setText("Select Time");
