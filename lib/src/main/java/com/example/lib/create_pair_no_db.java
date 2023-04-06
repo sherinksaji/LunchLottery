@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class create_pair {
+public class create_pair_no_db {
     ArrayList<Pair> Store_pair = new ArrayList<Pair>();
     public void Create(ArrayList<Identifiable> lst){ //create pairs from entry array list
         Collections.sort(lst,new IdentifiableComparator());

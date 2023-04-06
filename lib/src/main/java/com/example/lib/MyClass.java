@@ -19,24 +19,24 @@ public class MyClass {
         System.out.println(t.identity());
 
 
-        LotteryEntry entry = new LotteryEntry("sherinuhhahaha", gregCal);
+        LotteryTicket entry = new LotteryTicket("sherinuhhahaha", Week.calStrCreator.getCalStr(gregCal));
         System.out.println(entry.toString());
 
-        LotteryEntry entry1 = new LotteryEntry("marcia_sunflower", gregCal);
+        LotteryTicket entry1 = new LotteryTicket("marcia_sunflower", Week.calStrCreator.getCalStr(gregCal));
 
-        LotteryEntry entry2 = new LotteryEntry("Ravenex", gregCal);
-        LotteryEntry entry3 = new LotteryEntry("alexanderwikstrom", gregCal);
-        LotteryEntry entry4 = new LotteryEntry("jnssay", gregCal);
-        LotteryEntry entry5 = new LotteryEntry("rosapeltola", gregCal);
-        LotteryEntry entry6 = new LotteryEntry("Jalamieee", gregCal);
-        LotteryEntry entry7 = new LotteryEntry("turragdewan", gregCal);
-        LotteryEntry entry8 = new LotteryEntry("liewsoonhao", gregCal);
-        LotteryEntry entry9 = new LotteryEntry("after232", gregCal);
-        LotteryEntry entry10 = new LotteryEntry("Blackvines", gregCal);
-        LotteryEntry entry11 = new LotteryEntry("asapruki", gregCal);
-        LotteryEntry entry12 = new LotteryEntry("namoikonk", gregCal);
-        LotteryEntry entry13 = new LotteryEntry("gunnyjan", gregCal);
-        LotteryEntry entry14 = new LotteryEntry("Erick_t", gregCal);
+        LotteryTicket entry2 = new LotteryTicket("Ravenex", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry3 = new LotteryTicket("alexanderwikstrom", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry4 = new LotteryTicket("jnssay", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry5 = new LotteryTicket("rosapeltola",Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry6 = new LotteryTicket("Jalamieee", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry7 = new LotteryTicket("turragdewan", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry8 = new LotteryTicket("liewsoonhao", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry9 = new LotteryTicket("after232", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry10 = new LotteryTicket("Blackvines", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry11 = new LotteryTicket("asapruki", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry12 = new LotteryTicket("namoikonk", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry13 = new LotteryTicket("gunnyjan", Week.calStrCreator.getCalStr(gregCal));
+        LotteryTicket entry14 = new LotteryTicket("Erick_t", Week.calStrCreator.getCalStr(gregCal));
         ArrayList<Identifiable> entryArrayList = new ArrayList<>();
         entryArrayList.add(entry);
         entryArrayList.add(entry1);
@@ -57,14 +57,27 @@ public class MyClass {
             System.out.println(e.identity());
         }
 
-        create_pair cp = new create_pair();
+        create_pair_no_db cp = new create_pair_no_db();
         cp.Create(entryArrayList);
         for (int i = 0; i < cp.getStore_pair().size(); i++) {
             System.out.println("name: " + cp.getStore_pair().get(i).getId() + ", partner: " + cp.getStore_pair().get(i).getPartner());
         }
         System.out.println(cp.find_pair(cp.getStore_pair(), "jalamieee"));
         System.out.println(cp.find_pair(cp.getStore_pair(), "jnssay"));
+
+        ArrayList<Slottable> n=null;
+        if(n==null){
+            System.out.println("null");
+        }
+        else{
+            System.out.println("size zero");
+        }
     }
+
+
+
+
+
 }
         /*Pair pair1 = new Pair (entry,entry1);
         Boolean SherininPair=pair1.inPair("sherinuhhahaha");

@@ -9,20 +9,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -30,6 +19,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressBar=(ProgressBar) findViewById(R.id.progressBar);
 
-        mAuth=FirebaseAuth.getInstance();
+
 
 
     }
@@ -98,39 +88,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressBar.setVisibility(View.VISIBLE);
 
-
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        AuthenticationOperations.signIn(email, password, new PlainTaskCompleteListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    String uid= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference("Users").child(uid);
-                    ref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String telegramHandle=snapshot.child("telegramHandle").getValue(String.class);
-                            Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
-                            intent.putExtra("telegramHandle",telegramHandle );
-
-
-                            startActivity(intent);
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            String exceptionMessage=(task.getException().getMessage()!=null) ? task.getException().getMessage():"Exception Not Found";
-                            Toast.makeText(LoginActivity.this,"Failed to get user!"+exceptionMessage,Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
-
-
-                }else{
+            public void onBackendComplete(boolean success) {
+                if(success){
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(LoginActivity.this,"Login successful!",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                }
+                else{
                     Toast.makeText(LoginActivity.this,"Failed to login,please check your credentials!",Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                 }
+
             }
         });
+
+
+
     }
 }

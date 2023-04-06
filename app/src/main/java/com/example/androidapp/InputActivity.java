@@ -15,27 +15,27 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lib.LotteryEntry;
-import com.example.lib.LotteryTicket;
-import com.example.lib.Ticket;
+
 import com.example.lib.Week;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.TimeZone;
+
+
+interface DbReadStringOnChange{
+    void onDataChanged(String readString);
+}
 
 public class InputActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -105,7 +105,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         //userInfoRef =ref.child(weekNode).child(telegramHandle);
 
 
-        readPriorInput();
+        displayCurrentEntry();
 
         // single item array instance to store which element is selected by user initially
         // it should be set to zero meaning none of the element is selected by default
@@ -136,33 +136,31 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void  readPriorInput(){
-        ref.child(weekNode).child(telegramHandle).addValueEventListener(new ValueEventListener() {
+    public void displayCurrentEntry(){
+        DatabaseOperations.readCurrentEntryPersistent(weekNode, telegramHandle, new DbReadStringOnChange() {
             @Override
-            @NonNull
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-
-                if (dataSnapshot.exists()){
-                    LotteryTicket ticket= dataSnapshot.getValue(LotteryTicket.class);
-                    priorInputTV.setText("Current entry: "+ticket.getCalStr());
-                    joinButton.setText("Edit entry");
-                    deleteEntryTV.setVisibility(View.VISIBLE);
-
+            public void onDataChanged(String readString) {
+                if (readString.equals(DatabaseOperations.SOMETHINGWRONG)){
+                    Toast.makeText(InputActivity.this,"Cannot read prior input,log out and try again",Toast.LENGTH_LONG).show();
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(InputActivity.this, LoginActivity.class));
+                    Log.i("displayCE",readString);
                 }
-                else{
+                /**Already in XML, but in the instance that user delete entry, Join Lottery should be reset as if they have not entered the lottery*/
+                else if (readString.equals(DatabaseOperations.NOTENTERED)){
                     priorInputTV.setText("You have not entered the Lottery.");
                     joinButton.setText("Join Lottery");
                     timePickerBtn.setText("Select Time");
                     datePickerBtn.setText("Select Date");
                     deleteEntryTV.setVisibility(View.GONE);
+                    Log.i("displayCE",readString);
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
+                else{
+                    priorInputTV.setText("Current entry: "+readString);
+                    joinButton.setText("Edit entry");
+                    deleteEntryTV.setVisibility(View.VISIBLE);
+                    Log.i("displayCE",readString);
+                }
             }
         });
     }
@@ -236,7 +234,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
          *needed Week Method: public int maxDayForJoinLottery ()
          *needed Week Method: public int maxMonthForJoinLottery ()
          *needed Week Method: public int maxYearForJoinLottery ()
-         */
+         **/
         week_max = new Week.MaxDateForJoinLottery();
         final int maxDay = week_max.getMaxDay();
         final int maxMonth = week_max.getMaxMonth();
@@ -338,41 +336,26 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        addDataUnderWeek();
+        joinLottery();
     }
 
-
-    public void addDataUnderWeek()
-
-    {
-        Log.i("selectedDateTime", String.valueOf(selectedDateTime.getTime().toString()));
-        /**LotteryEntry entry=new LotteryEntry(telegramHandle,selectedDateTime);
-
-
-        Log.i("calStr",entry.calStr());
-        Ticket ticket=entry.fbTicket();
-        Log.i("Before Db", String.valueOf(ticket.getBookingTimeStamp()));*/
-
-        LotteryTicket ticket= new LotteryTicket(telegramHandle,Week.calStrCreator.getCalStr(selectedDateTime));
-
-        ref.child(weekNode).child(telegramHandle).setValue(ticket).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void joinLottery(){
+        DatabaseOperations.addDataUnderWeek(selectedDateTime, telegramHandle, weekNode, new PlainTaskCompleteListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+            public void onBackendComplete(boolean success) {
+                if (success){
                     Toast.makeText(InputActivity.this,"Joined lottery successfully", Toast.LENGTH_LONG).show();
                     timePickerBtn.setText("Select Time");
                     datePickerBtn.setText("Select Date");
-
-
+                    Log.i("joinLottery","successful");
                 }
-                else {
+                else{
 
-                    Toast.makeText(InputActivity.this,"Unable to join lottery! "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(InputActivity.this,"Unable to join lottery! Try again!",Toast.LENGTH_LONG).show();
+                    Log.i("joinLottery","failed");
                 }
             }
         });
-
     }
 
     public void deleteEntryDialog(){
@@ -391,7 +374,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
         builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
-            deleteEntry();
+            deleteEntryDbCall();
 
         });
 
@@ -407,22 +390,22 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         alertDialog.show();
     }
 
-    public void deleteEntry(){
-        ref.child(weekNode).child(telegramHandle).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void deleteEntryDbCall(){
+
+        DatabaseOperations.deleteEntry(weekNode, telegramHandle, new PlainTaskCompleteListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+            public void onBackendComplete(boolean success) {
+                if (success){
                     Toast.makeText(InputActivity.this,"Deleted entry successfully!", Toast.LENGTH_LONG).show();
-
-
+                    Log.i("deleteEntryDbCall","successful");
                 }
-                else {
-
-                    Toast.makeText(InputActivity.this,"Unable to delete entry! "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
-
+                else{
+                    Toast.makeText(InputActivity.this,"Unable to delete entry! ",Toast.LENGTH_LONG).show();
+                    Log.i("deleteEntryDbCall","failed");
                 }
             }
         });
+
 
     }
 

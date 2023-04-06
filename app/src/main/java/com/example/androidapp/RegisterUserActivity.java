@@ -9,17 +9,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lib.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Objects;
 public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText editTextTelegramHandle,editTextPassword, confirmPassword;
@@ -99,40 +92,23 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
         String email=telegramHandle+"@example.com";
 
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+        AuthenticationOperations.registerUser(telegramHandle, email, password, new PlainTaskCompleteListener() {
+            @Override
+            public void onBackendComplete(boolean success) {
+                if (success){
+                    Toast.makeText(RegisterUserActivity.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(RegisterUserActivity.this, LoginActivity.class));
+                }
+                else{
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(RegisterUserActivity.this,"Failed to register user!",Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
 
 
-                        if (task.isSuccessful()) {
-                            //Fix for Method invocation 'getUid' may produce 'NullPointerException'
-                            String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-                            User user = new User(telegramHandle, email, uid);
-
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(uid)
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(RegisterUserActivity.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
-                                                progressBar.setVisibility(View.VISIBLE);
-                                                startActivity(new Intent(RegisterUserActivity.this, LoginActivity.class));
-                                            } else {
-                                                String exceptionMessage = (task.getException().getMessage() != null) ? task.getException().getMessage() : "Exception Not Found";
-                                                Toast.makeText(RegisterUserActivity.this, "Failed to register! " + exceptionMessage, Toast.LENGTH_LONG).show();
-                                                progressBar.setVisibility(View.GONE);
-                                            }
-                                        }
-                                    });
-                        } else {
-                            String exceptionMessage = (task.getException().getMessage() != null) ? task.getException().getMessage() : "Exception Not Found";
-                            Toast.makeText(RegisterUserActivity.this, "Failed to register! Try again!" + exceptionMessage, Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
     }
 }

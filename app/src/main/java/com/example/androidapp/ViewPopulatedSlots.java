@@ -1,37 +1,38 @@
 package com.example.androidapp;
 
-import static android.content.ContentValues.TAG;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lib.Countable;
-import com.example.lib.CreateSlots;
-import com.example.lib.LotteryEntry;
-import com.example.lib.LotteryTicket;
-import com.example.lib.PopulatedSlot;
+
+
 import com.example.lib.Slottable;
-import com.example.lib.Ticket;
+
 import com.example.lib.Week;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.ArrayList;
+interface UpdateArrayListOnChange{
+    void onDataChanged(Boolean Success);
+}
+public class ViewPopulatedSlots extends AppCompatActivity {
 
-public class ViewPopulatedSlots extends AppCompatActivity{
 
-
-   DatabaseReference ref;
+    DatabaseReference ref;
     TextView nobodyJoinedTV;
 
     ArrayList<Slottable> allTicketsUnderWeekX;
@@ -40,110 +41,57 @@ public class ViewPopulatedSlots extends AppCompatActivity{
     String weekNode;
 
     RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_populated_slots);
-        allTicketsUnderWeekX =new ArrayList<>();
-        populatedSlots=new ArrayList<>();
+        allTicketsUnderWeekX = new ArrayList<>();
+        populatedSlots = new ArrayList<>();
 
 
         /**
          *needed Week Method: public String weekForViewResult ()
          */
-        weekNode=new Week.NextWeek().getWeekTitle();
+        weekNode = new Week.NextWeek().getWeekTitle();
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
-        nobodyJoinedTV=(TextView) findViewById(R.id.nobodyJoinedTV);
-        readWeek();
+        nobodyJoinedTV = (TextView) findViewById(R.id.nobodyJoinedTV);
+        updateRecyclerView();
 
-        recyclerView=(RecyclerView) findViewById(R.id.recyclerView);
-        populatedSlotAdapter=new PopulatedSlotAdapter(this,populatedSlots);
-        recyclerView.setLayoutManager( new LinearLayoutManager(this));
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        populatedSlotAdapter = new PopulatedSlotAdapter(this, populatedSlots);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(populatedSlotAdapter);
     }
 
-    private void readWeek(){
-        ref.addValueEventListener(new ValueEventListener() {
+    private void updateRecyclerView() {
+        CreateSlots.updateCountables(weekNode, populatedSlots, new UpdateArrayListOnChange() {
             @Override
-            @NonNull
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                allTicketsUnderWeekX.clear();
-                populatedSlots.clear();
-                if (dataSnapshot.exists()){
-                    nobodyJoinedTV.setVisibility(View.GONE);
-                    String readWeekStr="";
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                        LotteryTicket ticket = postSnapshot.getValue(LotteryTicket.class);
-                        allTicketsUnderWeekX.add(ticket);
-
+            public void onDataChanged(Boolean Success) {
+                if (Success) {
+                    if (populatedSlots.size() == 0) {
+                        nobodyJoinedTV.setVisibility(View.VISIBLE);
+                        Log.i("updateRecyclerView", "populatedSlots size is zero");
+                    } else {
+                        Log.i("updateRecyclerView", "populatedSlots size is not zero");
+                        nobodyJoinedTV.setVisibility(View.GONE);
                     }
-
-                    CreateSlots createSlots=new CreateSlots(populatedSlots, allTicketsUnderWeekX);
-                    createSlots.Create();
-
-                    Log.i("populatedSlots",populatedSlots.toString());
+                    //need to notify adapter when populatedSlots gets updated, ALSO when the size becomes zero
                     populatedSlotAdapter.notifyDataSetChanged();
-                    Log.i("Adapter", "notifyDataSetChanged() called");
+                } else {
+                    nobodyJoinedTV.setText(DatabaseOperations.SOMETHINGWRONG);
+                    Log.i("updateRecyclerView", "something wrong");
+                    Toast.makeText(ViewPopulatedSlots.this, "Something wrong. Logging out. Try again!", Toast.LENGTH_LONG).show();
+                    AuthenticationOperations.logout();
+                    startActivity(new Intent(ViewPopulatedSlots.this, LoginActivity.class));
                 }
-                else{
-
-                    nobodyJoinedTV.setVisibility(View.VISIBLE);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        /**HashSet<String> setCalStrArrayList=new HashSet<>();
-                        HashSet<String> setPopulatedSlots=new HashSet<>();
-
-                        for (String calStr: calStrArrayList) {
-                            if (setCalStrArrayList.add(calStr) == false) {
-                                setPopulatedSlots.add(calStr);
-                            }
-                        }
-                        //If add() returns false it means that element is not allowed in the Set
-                        // and that is your duplicate.
-
-                        //https://javarevisited.blogspot.com/2015/06/3-ways-to-find-duplicate-elements-in-array-java.html#axzz7xF81gQtH
-
-                        populatedSlots = new ArrayList<>(setPopulatedSlots);
-                        //https://www.geeksforgeeks.org/convert-hashset-to-a-arraylist-in-java/
-
-                        for (String calStr:populatedSlots){
-                            readWeekStr+=calStr.toString();
-                            readWeekStr+=",\n";
-                        }*/
+}
 
 
     //https://firebase.google.com/docs/database/web/read-and-write
 
 
-}
