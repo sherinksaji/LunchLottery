@@ -10,16 +10,28 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.example.lib.LotteryTicket;
+import com.example.lib.User;
 import com.example.lib.Week;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 interface DbReadStringComplete {
     public void onBackendComplete(String result);
 }
+
+
+
+
 public class HomeActivity extends AppCompatActivity{
     DatabaseReference userRef;
     DatabaseReference weekRef;
@@ -67,6 +79,19 @@ public class HomeActivity extends AppCompatActivity{
         TV.setText("Welcome, "+telegramHandle);
 
         PopulatedSlotsButton=(Button)findViewById(R.id.populatedSlots);
+
+        Timer timer = new Timer();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 24);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date time = calendar.getTime();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                startActivity(new Intent(HomeActivity.this,HomeActivity.class));
+            }
+        }, time);
+
 
         PopulatedSlotsButton.setOnClickListener(new View.OnClickListener() {
             @Override

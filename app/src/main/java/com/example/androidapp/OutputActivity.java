@@ -16,6 +16,11 @@ import com.example.lib.Week;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class OutputActivity extends AppCompatActivity {
 
     DatabaseReference ref;
@@ -64,6 +69,18 @@ public class OutputActivity extends AppCompatActivity {
             }
         });
         displayResults();
+
+        Timer timer = new Timer();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 24);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date time = calendar.getTime();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                startActivity(new Intent(OutputActivity.this,HomeActivity.class));
+            }
+        }, time);
     }
 
     private void displayResults(){

@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.lib.LotteryTicket;
+
 import com.example.lib.Week;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,24 +30,25 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 interface DbReadStringOnChange{
     void onDataChanged(String readString);
 }
 
+
+
+
 public class InputActivity extends AppCompatActivity implements View.OnClickListener{
 
-
     Button datePickerBtn,timePickerBtn,joinButton;
-
-
-
     DatabaseReference ref;
-
 
     String myUID;
     String telegramHandle;
@@ -63,7 +66,6 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
 
     final int[] checkedItem= new int [1];
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,17 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         selectedDateTime=new GregorianCalendar(Locale.getDefault());
 
         //userInfoRef =ref.child(weekNode).child(telegramHandle);
+        Timer timer = new Timer();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 24);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date time = calendar.getTime();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                startActivity(new Intent(InputActivity.this,HomeActivity.class));
+            }
+        }, time);
 
 
         displayCurrentEntry();
@@ -139,6 +152,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     public void displayCurrentEntry(){
         DatabaseOperations.readCurrentEntryPersistent(weekNode, telegramHandle, new DbReadStringOnChange() {
             @Override
+
             public void onDataChanged(String readString) {
                 if (readString.equals(DatabaseOperations.SOMETHINGWRONG)){
                     Toast.makeText(InputActivity.this,"Cannot read prior input,log out and try again",Toast.LENGTH_LONG).show();
@@ -148,6 +162,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                 }
                 /**Already in XML, but in the instance that user delete entry, Join Lottery should be reset as if they have not entered the lottery*/
                 else if (readString.equals(DatabaseOperations.NOTENTERED)){
+
                     priorInputTV.setText("You have not entered the Lottery.");
                     joinButton.setText("Join Lottery");
                     timePickerBtn.setText("Select Time");

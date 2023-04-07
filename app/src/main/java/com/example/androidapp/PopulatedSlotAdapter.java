@@ -54,7 +54,7 @@ public class PopulatedSlotAdapter extends RecyclerView.Adapter<PopulatedSlotAdap
         holder.getTimingTV()
                 .setText("Timing : "+this.populatedSlotArrayList.get(position).timeSlot());
         holder.getCountTV()
-                .setText("Count : "+this.populatedSlotArrayList.get(position).count());
+                .setText("Number of People: "+this.populatedSlotArrayList.get(position).count());
 
     }
 

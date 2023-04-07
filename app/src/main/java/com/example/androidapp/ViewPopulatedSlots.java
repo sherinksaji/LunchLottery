@@ -2,6 +2,8 @@ package com.example.androidapp;
 
 
 
+import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lib.Countable;
 
 
+
 import com.example.lib.Slottable;
+
+
+import com.example.lib.LotteryTicket;
 
 import com.example.lib.Week;
 
@@ -32,64 +38,87 @@ interface UpdateArrayListOnChange{
 public class ViewPopulatedSlots extends AppCompatActivity {
 
 
-    DatabaseReference ref;
+
+   DatabaseReference ref;
     TextView nobodyJoinedTV;
+    pl.droidsonroids.gif.GifImageView photo;
 
     ArrayList<Slottable> allTicketsUnderWeekX;
     ArrayList<Countable> populatedSlots;
     RecyclerView.Adapter<PopulatedSlotAdapter.SlotsHolder> populatedSlotAdapter;
-    String weekNode;
-
+    String weekNode,priorInput;
     RecyclerView recyclerView;
+
+
+
+    @SuppressLint("MissingInflatedId")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_populated_slots);
-        allTicketsUnderWeekX = new ArrayList<>();
-        populatedSlots = new ArrayList<>();
 
 
-        /**
-         *needed Week Method: public String weekForViewResult ()
-         */
+        populatedSlots=new ArrayList<>();
+        photo = findViewById(R.id.Photo);
+        Intent intent=getIntent();
+        priorInput=intent.getStringExtra("priorInput");
+
+
+
         weekNode = new Week.NextWeek().getWeekTitle();
         ref = FirebaseDatabase.getInstance().getReference().child(weekNode);
+
         nobodyJoinedTV = (TextView) findViewById(R.id.nobodyJoinedTV);
         updateRecyclerView();
+
+
+
+        //photo = findViewById(R.id.Photo);
+
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         populatedSlotAdapter = new PopulatedSlotAdapter(this, populatedSlots);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(populatedSlotAdapter);
+
+
     }
 
     private void updateRecyclerView() {
         CreateSlots.updateCountables(weekNode, populatedSlots, new UpdateArrayListOnChange() {
             @Override
+
             public void onDataChanged(Boolean Success) {
                 if (Success) {
                     if (populatedSlots.size() == 0) {
                         nobodyJoinedTV.setVisibility(View.VISIBLE);
+                        photo.setVisibility(View.VISIBLE);
                         Log.i("updateRecyclerView", "populatedSlots size is zero");
                     } else {
                         Log.i("updateRecyclerView", "populatedSlots size is not zero");
                         nobodyJoinedTV.setVisibility(View.GONE);
+                        photo.setVisibility(View.GONE);
+
                     }
                     //need to notify adapter when populatedSlots gets updated, ALSO when the size becomes zero
                     populatedSlotAdapter.notifyDataSetChanged();
-                } else {
-                    nobodyJoinedTV.setText(DatabaseOperations.SOMETHINGWRONG);
-                    Log.i("updateRecyclerView", "something wrong");
-                    Toast.makeText(ViewPopulatedSlots.this, "Something wrong. Logging out. Try again!", Toast.LENGTH_LONG).show();
-                    AuthenticationOperations.logout();
-                    startActivity(new Intent(ViewPopulatedSlots.this, LoginActivity.class));
                 }
-            }
-        });
-    }
+                else{
+                        nobodyJoinedTV.setText(DatabaseOperations.SOMETHINGWRONG);
+                        Log.i("updateRecyclerView", "something wrong");
+                        Toast.makeText(ViewPopulatedSlots.this, "Something wrong. Logging out. Try again!", Toast.LENGTH_LONG).show();
+                        AuthenticationOperations.logout();
+                        startActivity(new Intent(ViewPopulatedSlots.this, LoginActivity.class));
+                    }
+                }
+            });
 
+    }
 }
+
+
 
 
     //https://firebase.google.com/docs/database/web/read-and-write
