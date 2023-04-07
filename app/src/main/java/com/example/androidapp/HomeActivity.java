@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity{
 
 
         getTelegramHandle();
-        TV.setText("Welcome, "+telegramHandle);
+
 
         PopulatedSlotsButton=(Button)findViewById(R.id.populatedSlots);
 

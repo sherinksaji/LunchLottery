@@ -32,6 +32,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 interface UpdateArrayListOnChange{
     void onDataChanged(Boolean Success);
 }
@@ -82,6 +87,18 @@ public class ViewPopulatedSlots extends AppCompatActivity {
         populatedSlotAdapter = new PopulatedSlotAdapter(this, populatedSlots);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(populatedSlotAdapter);
+
+        Timer timer = new Timer();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 24);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date time = calendar.getTime();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                startActivity(new Intent(ViewPopulatedSlots.this,HomeActivity.class));
+            }
+        }, time);
 
 
     }

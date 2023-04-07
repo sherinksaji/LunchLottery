@@ -42,6 +42,9 @@ public class Week {
         public String getWeekTitle() {
             GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             int this_week = calendar.get(Calendar.WEEK_OF_YEAR);
+            if (detectDay.isSunday()) {
+                this_week-=1;
+            }
             String s = String.valueOf(this_week);
 
             return "Week" + s;
@@ -54,6 +57,9 @@ public class Week {
             GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             int next_week = calendar.get(Calendar.WEEK_OF_YEAR);
+            if (detectDay.isSunday()) {
+                next_week-=1;
+            }
             String s = String.valueOf(next_week);
             return "Week" + s;
         }
@@ -108,20 +114,35 @@ public class Week {
     }
     //from chatGPT
 
-    // Interface for getting the min day for joining the lottery (Monday of next week)
-    public interface MinDayForJoinLottery {
+    // Interface for getting the day for joining the lottery (Monday of next week)
+    public interface DayForJoinLottery {
         public int getMinDay();
+        public int getMaxDay();
         public int getMinMonth();
+        public int getMaxMonth();
         public int getMinYear();
+        public int getMaxYear();
     }
 
     // Class that implements MinDayForJoinLottery interface
-    public static class MinDateForJoinLottery implements MinDayForJoinLottery {
+    public static class DateForJoinLottery implements DayForJoinLottery {
         @Override
         public int getMinDay() {
             GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
-            calendar.add(Calendar.WEEK_OF_YEAR, 1);
+            if (!detectDay.isSunday()) {
+                calendar.add(Calendar.WEEK_OF_YEAR, 1);
+            }
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            return calendar.get(Calendar.DAY_OF_MONTH);
+        }
+
+        @Override
+        public int getMaxDay() {
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
+            if (!detectDay.isSunday()) {
+                calendar.add(Calendar.WEEK_OF_YEAR, 1);
+            }
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
             return calendar.get(Calendar.DAY_OF_MONTH);
         }
 
@@ -134,48 +155,19 @@ public class Week {
         }
 
         @Override
-        public int getMinYear() {
-            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
-            calendar.add(Calendar.WEEK_OF_YEAR, 1);
-            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-            return calendar.get(Calendar.YEAR);
-        }
-    }
-
-
-    /**
-     *needed Week Method: public int maxDayForJoinLottery ()
-     *needed Week Method: public int maxMonthForJoinLottery ()
-     *needed Week Method: public int maxYearForJoinLottery ()
-     * implement methods based on current Gregorian calendar time
-     * We use Gregorian Calendar for the rest of the app so pls use it
-     all these methods will give me the max date to allow user to select on
-     date picker
-     */
-
-    // Interface for getting max date for joining lottery (Friday of next week)
-    public interface MaxDayForJoinLottery {
-        public int getMaxDay();
-        public int getMaxMonth();
-        public int getMaxYear();
-    }
-
-    // Class that implements MaxDayForJoinLottery interface
-    public static class MaxDateForJoinLottery implements MaxDayForJoinLottery {
-        @Override
-        public int getMaxDay() {
-            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
-            calendar.add(Calendar.WEEK_OF_YEAR, 1);
-            calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-            return calendar.get(Calendar.DAY_OF_MONTH);
-        }
-
-        @Override
         public int getMaxMonth() {
             GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
             return calendar.get(Calendar.MONTH) + 1;
+        }
+
+        @Override
+        public int getMinYear() {
+            GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
+            calendar.add(Calendar.WEEK_OF_YEAR, 1);
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            return calendar.get(Calendar.YEAR);
         }
 
         @Override
@@ -188,9 +180,9 @@ public class Week {
     }
 
     public static void main(String[] args) {
-        Week.MinDayForJoinLottery current_week = new Week.MinDateForJoinLottery();
+        Week.DayForJoinLottery current_week = new Week.DateForJoinLottery();
         int minDay = current_week.getMinDay();
-        System.out.println("The Monday of the next week (should be 3): " + minDay);
+        System.out.println("The Monday of the next week (should be 10): " + minDay);
         //System.out.println("The month of the Monday of next week ( should be 4): " + minMonthForJoinLottery());
         //System.out.println("The year of the Monday of the next week (should be 2023): " + minYearForJoinLottery());
 
@@ -198,7 +190,9 @@ public class Week {
         //System.out.println("The month of the Friday of next week ( should be 4): " + maxMonthForJoinLottery());
         //System.out.println("The year of the Friday of the next week (should be 2023): " + maxYearForJoinLottery());
 
-        //System.out.println("You can view results for: " + weekForViewResult());
+        Week.WeekTitle current = new Week.NextWeek();
+        String get = current.getWeekTitle();
+        System.out.println("You can view results for: " + get);
         //System.out.println("You can enter the lottery for: " + weekForJoinLottery());
     }
 
