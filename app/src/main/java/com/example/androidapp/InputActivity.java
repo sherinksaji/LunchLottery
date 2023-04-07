@@ -52,9 +52,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     Week.WeekTitle week_title_next;
 
-    Week.MaxDayForJoinLottery week_max;
-
-    Week.MinDayForJoinLottery week_min;
+    Week.DayForJoinLottery week;
 
 
     final int[] checkedItem= new int [1];
@@ -182,6 +180,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         int year = gregCal.get(GregorianCalendar.YEAR);
         int month = gregCal.get(GregorianCalendar.MONTH);
         int day = gregCal.get(GregorianCalendar.DAY_OF_MONTH);
+        System.out.println(day);
 
 
         // on below line we are creating a variable for date picker dialog.
@@ -226,10 +225,10 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
          *needed Week Method: public int minMonthForJoinLottery ()
          *needed Week Method: public int minYearForJoinLottery ()
          */
-        week_min = new Week.MinDateForJoinLottery();
-        final int minDay = week_min.getMinDay();
-        final int minMonth = week_min.getMinMonth();
-        final int minYear = week_min.getMinYear();
+        week = new Week.DateForJoinLottery();
+        final int minDay = week.getMinDay();
+        final int minMonth = week.getMinMonth();
+        final int minYear = week.getMinYear();
         gregCal.set(minYear, minMonth - 1, minDay);
         datePickerDialog.getDatePicker().setMinDate(
                 gregCal.getTimeInMillis());
@@ -241,10 +240,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
          *needed Week Method: public int maxMonthForJoinLottery ()
          *needed Week Method: public int maxYearForJoinLottery ()
          */
-        week_max = new Week.MaxDateForJoinLottery();
-        final int maxDay = week_max.getMaxDay();
-        final int maxMonth = week_max.getMaxMonth();
-        final int maxYear = week_max.getMaxYear();
+        final int maxDay = week.getMaxDay();
+        final int maxMonth = week.getMaxMonth();
+        final int maxYear = week.getMaxYear();
         gregCal.set(maxYear, maxMonth - 1, maxDay);
         datePickerDialog.getDatePicker().setMaxDate(
                 gregCal.getTimeInMillis());
