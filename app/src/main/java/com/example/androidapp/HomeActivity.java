@@ -138,7 +138,7 @@ public class HomeActivity extends AppCompatActivity{
             }
         });
 
-        if (Week.detectDay.isWeekend()){
+        if (Week.detectDay.isSunday()){
             PopulatedSlotsButton.setVisibility(View.VISIBLE);
             OutputButton.setVisibility(View.GONE);
         }
