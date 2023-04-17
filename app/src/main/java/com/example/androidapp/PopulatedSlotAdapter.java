@@ -9,11 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lib.Countable;
-import com.example.lib.PopulatedSlot;
 
 import java.util.ArrayList;
 
-public class PopulatedSlotAdapter extends RecyclerView.Adapter<PopulatedSlotAdapter.SlotsHolder> {
+public class PopulatedSlotAdapter extends RecyclerView.Adapter<PopulatedSlotAdapter.ViewHolder> {
     LayoutInflater mInflater;
     Context context;
     ArrayList<Countable> populatedSlotArrayList;
@@ -30,7 +29,7 @@ public class PopulatedSlotAdapter extends RecyclerView.Adapter<PopulatedSlotAdap
 
     @NonNull
     @Override
-    public SlotsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context
                 = parent.getContext();
         LayoutInflater inflater
@@ -43,13 +42,13 @@ public class PopulatedSlotAdapter extends RecyclerView.Adapter<PopulatedSlotAdap
                 .inflate(R.layout.populated_slot_card,
                         parent, false);
 
-        SlotsHolder holder
-                = new SlotsHolder(photoView);
+        ViewHolder holder
+                = new ViewHolder(photoView);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SlotsHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final int index = holder.getAdapterPosition();
         holder.getTimingTV()
                 .setText("Timing : "+this.populatedSlotArrayList.get(position).timeSlot());
@@ -63,7 +62,7 @@ public class PopulatedSlotAdapter extends RecyclerView.Adapter<PopulatedSlotAdap
         return this.populatedSlotArrayList.size();
     }
 
-    class SlotsHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView timeSlotTV;
 
@@ -76,7 +75,7 @@ public class PopulatedSlotAdapter extends RecyclerView.Adapter<PopulatedSlotAdap
         }
 
         private TextView countTV;
-        public SlotsHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             timeSlotTV = itemView.findViewById(R.id.timeSlotTV);
             countTV=itemView.findViewById(R.id.countTV);

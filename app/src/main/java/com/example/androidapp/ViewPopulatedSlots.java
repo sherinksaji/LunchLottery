@@ -23,8 +23,6 @@ import com.example.lib.Countable;
 import com.example.lib.Slottable;
 
 
-import com.example.lib.LotteryTicket;
-
 import com.example.lib.Week;
 
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +48,7 @@ public class ViewPopulatedSlots extends AppCompatActivity {
 
     ArrayList<Slottable> allTicketsUnderWeekX;
     ArrayList<Countable> populatedSlots;
-    RecyclerView.Adapter<PopulatedSlotAdapter.SlotsHolder> populatedSlotAdapter;
+    RecyclerView.Adapter<PopulatedSlotAdapter.ViewHolder> populatedSlotAdapter;
     String weekNode,priorInput;
     RecyclerView recyclerView;
 
