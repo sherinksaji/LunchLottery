@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity{
     DatabaseReference userRef;
     DatabaseReference weekRef;
     String myUID;
-    Button OutputButton;
+    Button viewResultsButton;
     Button InputButton;
     Button LogoutButton;
     Button PopulatedSlotsButton;
@@ -122,8 +122,8 @@ public class HomeActivity extends AppCompatActivity{
 
 
 
-        OutputButton=(Button)findViewById(R.id.Output);
-        OutputButton.setOnClickListener(new View.OnClickListener(){
+        viewResultsButton =(Button)findViewById(R.id.Output);
+        viewResultsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
 
@@ -142,12 +142,12 @@ public class HomeActivity extends AppCompatActivity{
             }else{
                 PopulatedSlotsButton.setVisibility(View.GONE);//invisible on Saturday
             }
-            OutputButton.setVisibility(View.GONE);//all weekend invisible
+            viewResultsButton.setVisibility(View.GONE);//all weekend invisible
 
         }
         else{
             PopulatedSlotsButton.setVisibility(View.GONE);
-            OutputButton.setVisibility(View.VISIBLE);// only visible monday to friday
+            viewResultsButton.setVisibility(View.VISIBLE);// only visible monday to friday
         }
 
     }
@@ -185,7 +185,7 @@ public class HomeActivity extends AppCompatActivity{
                         displayLogout("Cannot read prior input.Try again. Logging out.");
                     }
                     else if (result.equals(NOTENTERED)){
-                        OutputButton.setVisibility(View.GONE);
+                        viewResultsButton.setVisibility(View.GONE);
 
                     }
                     else{
