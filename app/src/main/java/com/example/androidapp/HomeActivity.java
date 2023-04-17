@@ -138,13 +138,18 @@ public class HomeActivity extends AppCompatActivity{
             }
         });
 
-        if (Week.detectDay.isSunday()){
-            PopulatedSlotsButton.setVisibility(View.VISIBLE);
-            OutputButton.setVisibility(View.GONE);
+        if (Week.detectDay.isWeekend()){
+            if (Week.detectDay.isSunday()){
+                PopulatedSlotsButton.setVisibility(View.VISIBLE);//only visible Sunday
+            }else{
+                PopulatedSlotsButton.setVisibility(View.GONE);//invisible on Saturday
+            }
+            OutputButton.setVisibility(View.GONE);//all weekend invisible
+
         }
         else{
             PopulatedSlotsButton.setVisibility(View.GONE);
-            OutputButton.setVisibility(View.VISIBLE);
+            OutputButton.setVisibility(View.VISIBLE);// only visible monday to friday
         }
 
     }
