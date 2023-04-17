@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity{
     Button LogoutButton;
     Button PopulatedSlotsButton;
 
-    TextView TV;
+    TextView welcomeUsernameTV;
     String telegramHandle;
     String weekNode;
     String priorInput;
@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity{
         weekRef=FirebaseDatabase.getInstance().getReference().child(weekNode);
 
 
-        TV=(TextView)findViewById(R.id.textName);
+        welcomeUsernameTV =(TextView)findViewById(R.id.textName);
 
 
 
@@ -169,7 +169,7 @@ public class HomeActivity extends AppCompatActivity{
                         Log.i("getTelegramHandleResult",result);
                         telegramHandle = result;
                         Log.i("telegramHandle",result);
-                        TV.setText("Welcome, "+telegramHandle);
+                        welcomeUsernameTV.setText("Welcome, "+telegramHandle);
                         getPriorInput();
                     }
                 }
