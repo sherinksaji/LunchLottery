@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity{
     DatabaseReference weekRef;
     String myUID;
     Button viewResultsButton;
-    Button InputButton;
+    Button joinLotteryButton;
     Button LogoutButton;
     Button PopulatedSlotsButton;
 
@@ -109,8 +109,8 @@ public class HomeActivity extends AppCompatActivity{
         });
 
 
-        InputButton=(Button)findViewById(R.id.Input);
-        InputButton.setOnClickListener(new View.OnClickListener() {
+        joinLotteryButton =(Button)findViewById(R.id.Input);
+        joinLotteryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent InputIntent=new Intent(HomeActivity.this, JoinLotteryActivity.class);
