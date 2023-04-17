@@ -127,7 +127,7 @@ public class HomeActivity extends AppCompatActivity{
             @Override
             public void onClick(View v){
 
-                Intent OutputIntent=new Intent(HomeActivity.this, OutputActivity.class);
+                Intent OutputIntent=new Intent(HomeActivity.this, ViewResultsActivity.class);
                 OutputIntent.putExtra("telegramHandle",telegramHandle);
                 OutputIntent.putExtra("priorInput",priorInput);
                 startActivity(OutputIntent);

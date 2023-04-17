@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#efe3d6"
-    tools:context=".OutputActivity">
+    tools:context=".ViewResultsActivity">
 
     <TextView
         android:id="@+id/outputTV"

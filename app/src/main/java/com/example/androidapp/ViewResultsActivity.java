@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class OutputActivity extends AppCompatActivity {
+public class ViewResultsActivity extends AppCompatActivity {
 
     DatabaseReference ref;
     TextView TV;
@@ -64,7 +64,7 @@ public class OutputActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OutputActivity.this,HomeActivity.class);
+                Intent intent = new Intent(ViewResultsActivity.this,HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -78,7 +78,7 @@ public class OutputActivity extends AppCompatActivity {
         Date time = calendar.getTime();
         timer.schedule(new TimerTask() {
             public void run() {
-                startActivity(new Intent(OutputActivity.this,HomeActivity.class));
+                startActivity(new Intent(ViewResultsActivity.this,HomeActivity.class));
             }
         }, time);
     }
@@ -91,9 +91,9 @@ public class OutputActivity extends AppCompatActivity {
                 TV.setText(create_pair.getLotteryResult());
                 timeTV.setText(priorInput.replace(" ","\n"));
                 if (!success){
-                    Toast.makeText(OutputActivity.this,"Something wrong: Logging out. Try again.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ViewResultsActivity.this,"Something wrong: Logging out. Try again.",Toast.LENGTH_LONG).show();
                     AuthenticationOperations.logout();
-                    startActivity(new Intent(OutputActivity.this,LoginActivity.class));
+                    startActivity(new Intent(ViewResultsActivity.this,LoginActivity.class));
                 }
                 if (create_pair.getLotteryResult().equalsIgnoreCase("No one signed up")){
                     result.setText("Oh No");
