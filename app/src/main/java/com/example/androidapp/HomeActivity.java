@@ -11,8 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.lib.LotteryTicket;
-import com.example.lib.User;
 import com.example.lib.Week;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -115,7 +113,7 @@ public class HomeActivity extends AppCompatActivity{
         InputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent InputIntent=new Intent(HomeActivity.this, InputActivity.class);
+                Intent InputIntent=new Intent(HomeActivity.this, JoinLotteryActivity.class);
                 InputIntent.putExtra("telegramHandle",telegramHandle);
                 startActivity(InputIntent);
             }

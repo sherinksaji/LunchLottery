@@ -1,7 +1,5 @@
 package com.example.androidapp;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -18,8 +16,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import com.example.lib.LotteryTicket;
 
 import com.example.lib.Week;
 
@@ -45,7 +41,7 @@ interface DbReadStringOnChange{
 
 
 
-public class InputActivity extends AppCompatActivity implements View.OnClickListener{
+public class JoinLotteryActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button datePickerBtn,timePickerBtn,joinButton;
     DatabaseReference ref;
@@ -111,7 +107,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         Date time = calendar.getTime();
         timer.schedule(new TimerTask() {
             public void run() {
-                startActivity(new Intent(InputActivity.this,HomeActivity.class));
+                startActivity(new Intent(JoinLotteryActivity.this,HomeActivity.class));
             }
         }, time);
 
@@ -129,7 +125,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v){
         switch(v.getId()){
             case R.id.back:
-                startActivity(new Intent(InputActivity.this, HomeActivity.class));
+                startActivity(new Intent(JoinLotteryActivity.this, HomeActivity.class));
                 break;
             case R.id.dateButton:
                 datePicker();
@@ -153,9 +149,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
             public void onDataChanged(String readString) {
                 if (readString.equals(DatabaseOperations.SOMETHINGWRONG)){
-                    Toast.makeText(InputActivity.this,"Cannot read prior input,log out and try again",Toast.LENGTH_LONG).show();
+                    Toast.makeText(JoinLotteryActivity.this,"Cannot read prior input,log out and try again",Toast.LENGTH_LONG).show();
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(InputActivity.this, LoginActivity.class));
+                    startActivity(new Intent(JoinLotteryActivity.this, LoginActivity.class));
                     Log.i("displayCE",readString);
                 }
                 /**Already in XML, but in the instance that user delete entry, Join Lottery should be reset as if they have not entered the lottery*/
@@ -195,7 +191,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         // on below line we are creating a variable for date picker dialog.
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 // on below line we are passing context.
-                InputActivity.this,
+                JoinLotteryActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
@@ -261,7 +257,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     public void timePicker(){
         // AlertDialog builder instance to build the alert dialog
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(InputActivity.this);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(JoinLotteryActivity.this);
         // title of the alert dialog
         alertDialog.setTitle("Select Time");
 
@@ -338,12 +334,12 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
 
         if (dateButtonStr.equalsIgnoreCase("select date")){
-            Toast.makeText(InputActivity.this,"Please select date!",Toast.LENGTH_LONG).show();
+            Toast.makeText(JoinLotteryActivity.this,"Please select date!",Toast.LENGTH_LONG).show();
             return;
         }
 
         if (timeButtonStr.equalsIgnoreCase("select time")){
-            Toast.makeText(InputActivity.this,"Please select time!",Toast.LENGTH_LONG).show();
+            Toast.makeText(JoinLotteryActivity.this,"Please select time!",Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -355,14 +351,14 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onBackendComplete(boolean success) {
                 if (success){
-                    Toast.makeText(InputActivity.this,"Joined lottery successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(JoinLotteryActivity.this,"Joined lottery successfully", Toast.LENGTH_LONG).show();
                     timePickerBtn.setText("Select Time");
                     datePickerBtn.setText("Select Date");
                     Log.i("joinLottery","successful");
                 }
                 else{
 
-                    Toast.makeText(InputActivity.this,"Unable to join lottery! Try again!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(JoinLotteryActivity.this,"Unable to join lottery! Try again!",Toast.LENGTH_LONG).show();
                     Log.i("joinLottery","failed");
                 }
             }
@@ -371,7 +367,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     public void deleteEntryDialog(){
         // Create the object of AlertDialog Builder class
-        AlertDialog.Builder builder = new AlertDialog.Builder(InputActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(JoinLotteryActivity.this);
 
         // Set the message show for the Alert time
         builder.setMessage("Do you want to delete your entry into the lottery?");
@@ -407,11 +403,11 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onBackendComplete(boolean success) {
                 if (success){
-                    Toast.makeText(InputActivity.this,"Deleted entry successfully!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(JoinLotteryActivity.this,"Deleted entry successfully!", Toast.LENGTH_LONG).show();
                     Log.i("deleteEntryDbCall","successful");
                 }
                 else{
-                    Toast.makeText(InputActivity.this,"Unable to delete entry! ",Toast.LENGTH_LONG).show();
+                    Toast.makeText(JoinLotteryActivity.this,"Unable to delete entry! ",Toast.LENGTH_LONG).show();
                     Log.i("deleteEntryDbCall","failed");
                 }
             }
