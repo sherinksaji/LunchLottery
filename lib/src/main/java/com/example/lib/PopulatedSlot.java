@@ -13,17 +13,10 @@ public class PopulatedSlot implements Countable{
         return timing;
     }
 
-    public void setTiming(String timing) {
-        this.timing = timing;
-    }
-
     public int getNumberOfPeople() {
         return numberOfPeople;
     }
 
-    public void setNumberOfPeople(int numberOfPeople) {
-        this.numberOfPeople = numberOfPeople;
-    }
 
     @Override
     public int count() {
