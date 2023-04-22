@@ -44,9 +44,9 @@ interface DbReadStringOnChange{
 public class JoinLotteryActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button datePickerBtn,timePickerBtn,joinButton;
-    DatabaseReference ref;
 
-    String myUID;
+
+
     String telegramHandle;
     TextView priorInputTV;
     TextView deleteEntryTV;
@@ -86,7 +86,7 @@ public class JoinLotteryActivity extends AppCompatActivity implements View.OnCli
         back = findViewById(R.id.back);
         back.setOnClickListener(this);
 
-        myUID= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
 
 
         // week the user can enter the lottery for
@@ -94,7 +94,7 @@ public class JoinLotteryActivity extends AppCompatActivity implements View.OnCli
         weekNode = week_title_next.getWeekTitle();
 
 
-        ref = FirebaseDatabase.getInstance().getReference();
+
 
         selectedDateTime=new GregorianCalendar(Locale.getDefault());
 
@@ -150,7 +150,7 @@ public class JoinLotteryActivity extends AppCompatActivity implements View.OnCli
             public void onDataChanged(String readString) {
                 if (readString.equals(DatabaseOperations.SOMETHINGWRONG)){
                     Toast.makeText(JoinLotteryActivity.this,"Cannot read prior input,log out and try again",Toast.LENGTH_LONG).show();
-                    FirebaseAuth.getInstance().signOut();
+                    AuthenticationOperations.logout();
                     startActivity(new Intent(JoinLotteryActivity.this, LoginActivity.class));
                     Log.i("displayCE",readString);
                 }
