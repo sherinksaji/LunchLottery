@@ -10,17 +10,10 @@ public class LotteryTicket implements Identifiable,Slottable{
         return telegramHandle;
     }
 
-    public void setTelegramHandle(String telegramHandle) {
-        this.telegramHandle = telegramHandle;
-    }
-
     public String getCalStr() {
         return calStr;
     }
 
-    public void setCalStr(String calStr) {
-        this.calStr = calStr;
-    }
 
     public LotteryTicket(String telegramHandle, String calStr) {
         this.telegramHandle = telegramHandle;
