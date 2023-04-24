@@ -104,7 +104,7 @@ public class AuthenticationOperations {
                             }
                             else {
 
-                                User user = new User(telegramHandle, email, uid);
+                                User user = new User(telegramHandle, uid);
                                 DatabaseOperations.addUser(user, new PlainTaskCompleteListener() {
                                     @Override
                                     public void onBackendComplete(boolean success) {

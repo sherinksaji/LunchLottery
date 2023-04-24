@@ -17,14 +17,14 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
     private EditText editTextTelegramHandle,editTextPassword, confirmPassword;
     private ProgressBar progressBar;
-    private FirebaseAuth mAuth;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-        mAuth = FirebaseAuth.getInstance();
+
 
         TextView banner=(TextView)findViewById(R.id.banner);
         banner.setOnClickListener(this);
