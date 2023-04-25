@@ -95,7 +95,9 @@ public class JoinLotteryActivity extends AppCompatActivity implements View.OnCli
 
         selectedDateTime=new GregorianCalendar(Locale.getDefault());
 
-        //userInfoRef =ref.child(weekNode).child(telegramHandle);
+
+
+        //code to kick user out of JoinLotteryActivity to allow Week class instance, minDateForJoinLottery and maxDateForJoinLottery to reset for the new day
         Timer timer = new Timer();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 24);

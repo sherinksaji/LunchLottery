@@ -86,6 +86,7 @@ public class ViewPopulatedSlots extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(populatedSlotAdapter);
 
+        //code to kick user out of JoinLotteryActivity to allow Week class instance to reset for the new day
         Timer timer = new Timer();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 24);
