@@ -17,18 +17,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText editTextTelegramHandle,editTextPassword;
 
-    private FirebaseAuth mAuth;
+    
     private ProgressBar progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth=FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() !=null){
-            startActivity(new Intent(this, HomeActivity.class));
-            this.finish();
-        }
+
         setContentView(R.layout.activity_login);
 
         TextView register=(TextView) findViewById(R.id.register);
