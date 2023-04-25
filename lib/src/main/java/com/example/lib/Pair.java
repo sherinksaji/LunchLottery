@@ -11,7 +11,7 @@ public class Pair {
         this.partner = partner; //person paired with
     }
 
-    public Pair(String id, String partner, String partner2) { //only used when entry array list is odd numbered
+    public Pair(String id, String partner, String partner2) { //used when identifiables arraylist is odd numbered
         this.id = id;
         this.partner = partner + ",\n" + partner2;
     }
