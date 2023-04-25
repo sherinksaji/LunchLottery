@@ -36,7 +36,7 @@ public class Week {
         public String getWeekTitle();
     }
 
-    // Class that implements the WeekTitle interface
+    // Class that implements the WeekTitle interface,
     public static class CurrentWeek implements WeekTitle {
         @Override
         public String getWeekTitle() {
@@ -82,7 +82,7 @@ public class Week {
         public int getYear();
     }
 
-    public static class detectDay{
+    public static class detectDay{ //used in HomeActivity to detect what day it is to make the buttons to the app features visible and non-visible depending on the day
         public static boolean isWeekend() {
             GregorianCalendar calendar = new GregorianCalendar(Locale.getDefault());
             if (calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SATURDAY) || calendar.get(Calendar.DAY_OF_WEEK) == (Calendar.SUNDAY)) {
